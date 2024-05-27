@@ -12,6 +12,10 @@ concurrency:
 
 jobs:
   pipeline:
+    permissions:
+      contents: write
+      pull-requests: write
+      repository-projects: write
     strategy:
       fail-fast: false
       matrix:
