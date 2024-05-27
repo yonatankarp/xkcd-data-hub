@@ -1,2 +1,5 @@
-rootProject.name = "marvel-data-hub"
-include("fetcher")
+rootProject.name = "xkcd-data-hub"
+include(
+    "fetcher",
+    "writer"
+)

@@ -1,1 +1,1 @@
-# marvel-data-hub
+# xkcd-data-hub

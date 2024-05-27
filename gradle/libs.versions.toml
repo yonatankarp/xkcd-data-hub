@@ -1,6 +1,61 @@
 [versions]
-
+exposed = "0.50.1"
 kotlin = "2.0.0"
+ktor = "2.3.11"
+logback = "1.5.6"
+postgres = "42.7.3"
 
 [libraries]
-kotlin-gradle-plugin = { module = "org.jetbrains.kotlin:kotlin-gradle-plugin", version.ref = "kotlin" }
+
+## Ktor
+ktor_client_cio = { module = "io.ktor:ktor-client-cio", version.ref = "ktor" }
+ktor_client_content_negotiation = { module = "io.ktor:ktor-client-content-negotiation", version.ref = "ktor" }
+ktor_core = { module = "io.ktor:ktor-server-core", version.ref = "ktor" }
+ktor_serialization_kotlinx_json = { module = "io.ktor:ktor-serialization-kotlinx-json", version.ref = "ktor" }
+ktor_server_config_yaml = { module = "io.ktor:ktor-server-config-yaml", version.ref = "ktor" }
+ktor_server_netty_jvm = { module = "io.ktor:ktor-server-netty", version.ref = "ktor" }
+
+## Exposed
+exposed_core = { module = "org.jetbrains.exposed:exposed-core", version.ref = "exposed" }
+exposed_dao = { module = "org.jetbrains.exposed:exposed-dao", version.ref = "exposed" }
+exposed_java_time = { module = "org.jetbrains.exposed:exposed-java-time", version.ref = "exposed" }
+exposed_jdbc = { module = "org.jetbrains.exposed:exposed-jdbc", version.ref = "exposed" }
+
+## Persistence
+postgres_driver = { module = "org.postgresql:postgresql", version.ref = "postgres" }
+
+## Logging
+logback = { module = "ch.qos.logback:logback-classic", version.ref = "logback" }
+
+## Tests
+kotlin_test_junit = { module = "org.jetbrains.kotlin:kotlin-test-junit", version.ref = "kotlin" }
+ktor_tests = { module = "io.ktor:ktor-server-tests", version.ref = "ktor" }
+
+[plugins]
+kotlin_jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }
+kotlin_serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
+ktor = { id = "io.ktor.plugin", version.ref = "ktor" }
+
+[bundles]
+
+ktor_all = [
+    "ktor_client_cio",
+    "ktor_client_content_negotiation",
+    "ktor_core",
+    "ktor_serialization_kotlinx_json",
+    "ktor_server_config_yaml",
+    "ktor_server_netty_jvm",
+]
+
+persistance_all = [
+    "exposed_core",
+    "exposed_dao",
+    "exposed_java_time",
+    "exposed_jdbc",
+    "postgres_driver",
+]
+
+tests_all = [
+    "kotlin_test_junit",
+    "ktor_tests",
+]
