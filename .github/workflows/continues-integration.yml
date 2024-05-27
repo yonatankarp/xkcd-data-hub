@@ -25,6 +25,7 @@ jobs:
     uses: yonatankarp/github-actions/.github/workflows/ci.yml@v1
     with:
       app_name: ${{ matrix.service }}
+      build_dockerfile: false # Temp disable build until dockerfile will be set
 
   dependabot_auto_merge:
     needs: pipeline
