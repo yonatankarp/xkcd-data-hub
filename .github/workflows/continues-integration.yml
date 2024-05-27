@@ -34,4 +34,8 @@ jobs:
       GITHUB_PAT: ${{ secrets.PAT }}
 
   linters:
+    permissions:
+      contents: write
+      pull-requests: write
+      repository-projects: write
     uses: yonatankarp/github-actions/.github/workflows/linters.yml@v1
