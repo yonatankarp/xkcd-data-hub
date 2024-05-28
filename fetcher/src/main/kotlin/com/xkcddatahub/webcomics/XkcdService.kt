@@ -3,8 +3,8 @@ package com.xkcddatahub.webcomics
 import kotlinx.coroutines.coroutineScope
 
 class XkcdService(
-    private val client: XkcdClient = XkcdClient(),
-    private val repository: ComicRepository = ComicRepository(),
+    private val client: XkcdClient,
+    private val repository: ComicRepository,
 ) {
     suspend fun fetchAndStoreComics() = coroutineScope {
         repeat(client.getMaxId()) {
