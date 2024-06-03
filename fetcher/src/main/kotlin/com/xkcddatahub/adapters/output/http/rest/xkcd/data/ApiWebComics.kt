@@ -1,4 +1,4 @@
-package com.xkcddatahub.adapters.output.http.rest.xkcd.client.data
+package com.xkcddatahub.adapters.output.http.rest.xkcd.data
 
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable

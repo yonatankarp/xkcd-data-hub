@@ -1,13 +1,13 @@
 package com.xkcddatahub.adapters.output.database.postgres
 
-import com.xkcddatahub.adapters.output.database.postgres.mappers.WebComicsMapper.toData
+import com.xkcddatahub.adapters.output.database.postgres.mappers.DatabaseWebComicsMapper.toData
 import com.xkcddatahub.adapters.output.database.postgres.table.WebComicsTable
 import com.xkcddatahub.application.ports.WebComicsPort
 import com.xkcddatahub.bootstrap.DatabaseInitializer.Companion.dbQuery
 import com.xkcddatahub.domain.entity.WebComics
 import org.jetbrains.exposed.sql.insert
 
-class WebComicPostgresPort : WebComicsPort {
+class WebComicPostgresAdapter : WebComicsPort {
     override suspend fun save(comics: WebComics): Boolean = dbQuery {
         val data = comics.toData()
         WebComicsTable.insert {

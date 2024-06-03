@@ -1,9 +1,12 @@
 [versions]
+coroutines = "1.8.1"
 exposed = "0.51.0"
 koin = "3.5.6"
+kotest = "4.0.7"
 kotlin = "2.0.0"
 ktor = "2.3.11"
 logback = "1.5.6"
+mockk = "1.13.11"
 postgres = "42.7.3"
 
 [libraries]
@@ -32,8 +35,12 @@ postgres_driver = { module = "org.postgresql:postgresql", version.ref = "postgre
 logback = { module = "ch.qos.logback:logback-classic", version.ref = "logback" }
 
 ## Tests
+kotest_assertions_jvm = { module = "io.kotest:kotest-assertions-jvm", version.ref = "kotest" }
+kotlin_coroutines_test = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-test", version.ref = "coroutines" }
 kotlin_test_junit = { module = "org.jetbrains.kotlin:kotlin-test-junit", version.ref = "kotlin" }
+ktor_client_mock = {module = "io.ktor:ktor-client-mock", version.ref = "ktor"}
 ktor_tests = { module = "io.ktor:ktor-server-tests", version.ref = "ktor" }
+mockk = { module = "io.mockk:mockk", version.ref = "mockk" }
 
 [plugins]
 kotlin_jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }
@@ -60,6 +67,10 @@ persistance_all = [
 ]
 
 tests_all = [
+    "kotest_assertions_jvm",
+    "kotlin_coroutines_test",
     "kotlin_test_junit",
+    "ktor_client_mock",
     "ktor_tests",
+    "mockk"
 ]
