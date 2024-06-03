@@ -9,8 +9,32 @@ plugins {
 }
 
 allprojects {
+    apply(plugin = "com.diffplug.spotless")
+
     repositories {
         mavenCentral()
+    }
+
+    afterEvaluate {
+        plugins.withId("com.diffplug.spotless") {
+            configure<com.diffplug.gradle.spotless.SpotlessExtension> {
+                kotlin {
+                    ktlint()
+                    trimTrailingWhitespace()
+                    target("src/**/*.kt")
+                }
+                kotlinGradle {
+                    ktlint()
+                    trimTrailingWhitespace()
+                    target("**/*.kts")
+                }
+                flexmark {
+                    flexmark()
+                    trimTrailingWhitespace()
+                    target("**/*.md")
+                }
+            }
+        }
     }
 }
 
@@ -19,26 +43,8 @@ subprojects {
     version = "0.0.1"
 
     apply(plugin = "info.solidsoft.pitest")
-    apply(plugin = "com.diffplug.spotless")
 
     afterEvaluate {
-        plugins.withId("com.diffplug.spotless") {
-            configure<com.diffplug.gradle.spotless.SpotlessExtension> {
-                kotlin {
-                    ktlint()
-                    target("src/**/*.kt")
-                }
-                kotlinGradle {
-                    ktlint()
-                    target("src/**/*.kts")
-                }
-                flexmark {
-                    flexmark()
-                    target("src/**/*.md")
-                }
-            }
-        }
-
         plugins.withId("info.solidsoft.pitest") {
             configure<info.solidsoft.gradle.pitest.PitestPluginExtension> {
                 targetClasses.set(listOf("com.xkcddatahub.*"))
@@ -46,9 +52,10 @@ subprojects {
                 outputFormats.set(listOf("XML", "HTML"))
                 junit5PluginVersion = "1.2.1"
                 timestampedReports.set(false)
-                excludedClasses = listOf(
-                    "com.xkcddatahub.*.di.*"
-                )
+                excludedClasses =
+                    listOf(
+                        "com.xkcddatahub.*.di.*",
+                    )
             }
         }
 
@@ -66,5 +73,3 @@ tasks.register("copyGitHooks", Copy::class) {
     from(".github/githooks")
     into(".git/hooks")
 }
-
-
