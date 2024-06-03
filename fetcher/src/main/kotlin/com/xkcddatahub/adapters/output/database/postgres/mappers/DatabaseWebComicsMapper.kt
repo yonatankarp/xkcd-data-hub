@@ -3,7 +3,7 @@ package com.xkcddatahub.adapters.output.database.postgres.mappers
 import com.xkcddatahub.adapters.output.database.postgres.data.DatabaseWebComics
 import com.xkcddatahub.domain.entity.WebComics
 
-object WebComicsMapper {
+object DatabaseWebComicsMapper {
     fun WebComics.toData() =
         DatabaseWebComics(
             id = id,

@@ -1,7 +1,7 @@
-package com.xkcddatahub.adapters.output.http.rest.xkcd.client
+package com.xkcddatahub.adapters.output.http.rest.xkcd
 
-import com.xkcddatahub.adapters.output.http.rest.xkcd.client.data.ApiWebComics
-import com.xkcddatahub.adapters.output.http.rest.xkcd.client.mappers.WebComicsMapper.toDomain
+import com.xkcddatahub.adapters.output.http.rest.xkcd.data.ApiWebComics
+import com.xkcddatahub.adapters.output.http.rest.xkcd.mappers.ApiWebComicsMapper.toDomain
 import com.xkcddatahub.application.ports.XkcdClientPort
 import io.ktor.client.HttpClient
 import io.ktor.client.call.body

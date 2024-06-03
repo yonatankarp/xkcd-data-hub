@@ -1,9 +1,9 @@
-package com.xkcddatahub.adapters.output.http.rest.xkcd.client.mappers
+package com.xkcddatahub.adapters.output.http.rest.xkcd.mappers
 
-import com.xkcddatahub.adapters.output.http.rest.xkcd.client.data.ApiWebComics
+import com.xkcddatahub.adapters.output.http.rest.xkcd.data.ApiWebComics
 import com.xkcddatahub.domain.entity.WebComics
 
-object WebComicsMapper {
+object ApiWebComicsMapper {
     fun ApiWebComics.toDomain() =
         WebComics(
             id = id,
