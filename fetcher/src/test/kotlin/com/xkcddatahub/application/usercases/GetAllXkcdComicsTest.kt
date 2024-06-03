@@ -30,6 +30,7 @@ class GetAllXkcdComicsTest {
         val comics = createTestWebComics()
 
         coEvery { client.getLatestComicId() } returns latestComicId
+        coEvery { repository.getLatestStoredComicId() } returns 0
         coEvery { client.getComicsById(any()) } returns comics
         coEvery { repository.save(any()) } returns true
 
@@ -50,6 +51,7 @@ class GetAllXkcdComicsTest {
         val comics = createTestWebComics()
 
         coEvery { client.getLatestComicId() } returns latestComicId
+        coEvery { repository.getLatestStoredComicId() } returns 0
         coEvery { client.getComicsById(1) } returns comics
         coEvery { client.getComicsById(2) } throws Exception("Failed to fetch comic")
         coEvery { client.getComicsById(3) } returns comics
@@ -61,6 +63,25 @@ class GetAllXkcdComicsTest {
         // Then
         coVerify(exactly = 3) { client.getComicsById(any()) }
         coVerify(exactly = 2) { repository.save(comics) }
+    }
+
+    @Test
+    fun `should not fetch data when latest stored id is the same as latest available id`() = runTest {
+        // Given
+        val getAllXkcdComics = GetAllXkcdComics(client, repository)
+
+        val latestComicId = 5
+        val comics = createTestWebComics()
+
+        coEvery { client.getLatestComicId() } returns latestComicId
+        coEvery { repository.getLatestStoredComicId() } returns latestComicId
+
+        // When
+        getAllXkcdComics()
+
+        // Then
+        coVerify(exactly = 0) { client.getComicsById(any()) }
+        coVerify(exactly = 0) { repository.save(comics) }
     }
 
     private fun createTestWebComics(id: Int = 1) = WebComics(

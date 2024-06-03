@@ -6,6 +6,7 @@ import com.xkcddatahub.application.ports.WebComicsPort
 import com.xkcddatahub.bootstrap.DatabaseInitializer.Companion.dbQuery
 import com.xkcddatahub.domain.entity.WebComics
 import org.jetbrains.exposed.sql.insert
+import org.jetbrains.exposed.sql.max
 
 class WebComicPostgresAdapter : WebComicsPort {
     override suspend fun save(comics: WebComics): Boolean = dbQuery {
@@ -24,4 +25,12 @@ class WebComicPostgresAdapter : WebComicsPort {
             it[link] = data.link
         }.insertedCount == 1
     }
+
+    override suspend fun getLatestStoredComicId(): Int =
+        dbQuery {
+            WebComicsTable
+                .select(WebComicsTable.id.max())
+                .single()[WebComicsTable.id.max()]
+                ?: 0
+        }
 }

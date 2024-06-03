@@ -16,7 +16,8 @@ class GetAllXkcdComics(
     suspend operator fun invoke() =
         ioCoroutinesScope {
             val latestComicId = client.getLatestComicId()
-            for (id in 1..latestComicId) {
+            val latestStoredComicId = repository.getLatestStoredComicId()
+            for (id in (latestStoredComicId + 1)..latestComicId) {
                 runCatching {
                     logger.info("Fetching comic $id")
                     val comics = client.getComicsById(id)
