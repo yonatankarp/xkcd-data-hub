@@ -2,7 +2,7 @@ package com.xkcddatahub.adapters.output.http.rest.xkcd
 
 import com.xkcddatahub.adapters.output.http.rest.xkcd.data.ApiWebComics
 import com.xkcddatahub.adapters.output.http.rest.xkcd.mappers.ApiWebComicsMapper.toDomain
-import com.xkcddatahub.utils.FilesUtils.readFileFromResources
+import com.xkcddatahub.helpers.FilesUtils.readFileFromResources
 import io.kotest.matchers.shouldBe
 import io.ktor.client.HttpClient
 import io.ktor.client.engine.mock.MockEngine
@@ -22,7 +22,8 @@ class XkcdClientAdapterTest {
     fun `should fetch the latest comic ID successfully`() = runTest {
         // Given
         val expectedId = 2940
-        val jsonResponse = readFileFromResources("responses/xkcd/latest-index.json")
+        val jsonResponse =
+            readFileFromResources("responses/xkcd/latest-index.json")
         val client = httpClient(jsonResponse)
         val xkcdClientAdapter = XkcdClientAdapter(client)
 
@@ -38,7 +39,8 @@ class XkcdClientAdapterTest {
         // Given
         val comicId = 160
         val webComics = createApiWebComics().toDomain()
-        val jsonResponse = readFileFromResources("responses/xkcd/webcomics.json")
+        val jsonResponse =
+            readFileFromResources("responses/xkcd/webcomics.json")
 
         val client = httpClient(jsonResponse, comicId)
         val xkcdClientAdapter = XkcdClientAdapter(client)
@@ -50,22 +52,43 @@ class XkcdClientAdapterTest {
         actualWebComics shouldBe webComics
     }
 
-    private fun mockEngine(jsonResponse: String, comicsId: Int) = MockEngine { request ->
-        when (request.url.fullPath) {
-            "/info.0.json", "/$comicsId/info.0.json" -> respond(
-                jsonResponse,
-                HttpStatusCode.OK,
-                headersOf("Content-Type" to listOf(ContentType.Application.Json.toString()))
-            )
-            else -> respondError(HttpStatusCode.NotFound)
-        }
+    @Test
+    fun `should return nu failing to fetch comic by Id`() = runTest {
+        // Given
+        val comicId = 160
+        val webComics = createApiWebComics().toDomain()
+        val jsonResponse =
+            readFileFromResources("responses/xkcd/webcomics.json")
+
+        val client = httpClient(jsonResponse, comicId)
+        val xkcdClientAdapter = XkcdClientAdapter(client)
+
+        // When
+        val actualWebComics = xkcdClientAdapter.getComicsById(comicId)
+
+        // Then
+        actualWebComics shouldBe webComics
     }
 
-    private fun httpClient(jsonResponse: String, comicsId: Int = 0) = HttpClient(mockEngine(jsonResponse, comicsId)) {
-        install(ContentNegotiation) {
-            json()
+    private fun mockEngine(jsonResponse: String, comicsId: Int) =
+        MockEngine { request ->
+            when (request.url.fullPath) {
+                "/info.0.json", "/$comicsId/info.0.json" -> respond(
+                    jsonResponse,
+                    HttpStatusCode.OK,
+                    headersOf("Content-Type" to listOf(ContentType.Application.Json.toString()))
+                )
+
+                else -> respondError(HttpStatusCode.NotFound)
+            }
         }
-    }
+
+    private fun httpClient(jsonResponse: String, comicsId: Int = 0) =
+        HttpClient(mockEngine(jsonResponse, comicsId)) {
+            install(ContentNegotiation) {
+                json()
+            }
+        }
 
     private fun createApiWebComics(): ApiWebComics {
         val id = 160
