@@ -19,76 +19,84 @@ import kotlin.test.Test
 
 class XkcdClientAdapterTest {
     @Test
-    fun `should fetch the latest comic ID successfully`() = runTest {
-        // Given
-        val expectedId = 2940
-        val jsonResponse =
-            readFileFromResources("responses/xkcd/latest-index.json")
-        val client = httpClient(jsonResponse)
-        val xkcdClientAdapter = XkcdClientAdapter(client)
+    fun `should fetch the latest comic ID successfully`() =
+        runTest {
+            // Given
+            val expectedId = 2940
+            val jsonResponse =
+                readFileFromResources("responses/xkcd/latest-index.json")
+            val client = httpClient(jsonResponse)
+            val xkcdClientAdapter = XkcdClientAdapter(client)
 
-        // When
-        val actualId = xkcdClientAdapter.getLatestComicId()
+            // When
+            val actualId = xkcdClientAdapter.getLatestComicId()
 
-        // Then
-        actualId shouldBe expectedId
-    }
-
-    @Test
-    fun `should fetch comic by ID successfully`() = runTest {
-        // Given
-        val comicId = 160
-        val webComics = createApiWebComics().toDomain()
-        val jsonResponse =
-            readFileFromResources("responses/xkcd/webcomics.json")
-
-        val client = httpClient(jsonResponse, comicId)
-        val xkcdClientAdapter = XkcdClientAdapter(client)
-
-        // When
-        val actualWebComics = xkcdClientAdapter.getComicsById(comicId)
-
-        // Then
-        actualWebComics shouldBe webComics
-    }
+            // Then
+            actualId shouldBe expectedId
+        }
 
     @Test
-    fun `should return nu failing to fetch comic by Id`() = runTest {
-        // Given
-        val comicId = 160
-        val webComics = createApiWebComics().toDomain()
-        val jsonResponse =
-            readFileFromResources("responses/xkcd/webcomics.json")
+    fun `should fetch comic by ID successfully`() =
+        runTest {
+            // Given
+            val comicId = 160
+            val webComics = createApiWebComics().toDomain()
+            val jsonResponse =
+                readFileFromResources("responses/xkcd/webcomics.json")
 
-        val client = httpClient(jsonResponse, comicId)
-        val xkcdClientAdapter = XkcdClientAdapter(client)
+            val client = httpClient(jsonResponse, comicId)
+            val xkcdClientAdapter = XkcdClientAdapter(client)
 
-        // When
-        val actualWebComics = xkcdClientAdapter.getComicsById(comicId)
+            // When
+            val actualWebComics = xkcdClientAdapter.getComicsById(comicId)
 
-        // Then
-        actualWebComics shouldBe webComics
-    }
+            // Then
+            actualWebComics shouldBe webComics
+        }
 
-    private fun mockEngine(jsonResponse: String, comicsId: Int) =
-        MockEngine { request ->
-            when (request.url.fullPath) {
-                "/info.0.json", "/$comicsId/info.0.json" -> respond(
+    @Test
+    fun `should return nu failing to fetch comic by Id`() =
+        runTest {
+            // Given
+            val comicId = 160
+            val webComics = createApiWebComics().toDomain()
+            val jsonResponse =
+                readFileFromResources("responses/xkcd/webcomics.json")
+
+            val client = httpClient(jsonResponse, comicId)
+            val xkcdClientAdapter = XkcdClientAdapter(client)
+
+            // When
+            val actualWebComics = xkcdClientAdapter.getComicsById(comicId)
+
+            // Then
+            actualWebComics shouldBe webComics
+        }
+
+    private fun mockEngine(
+        jsonResponse: String,
+        comicsId: Int,
+    ) = MockEngine { request ->
+        when (request.url.fullPath) {
+            "/info.0.json", "/$comicsId/info.0.json" ->
+                respond(
                     jsonResponse,
                     HttpStatusCode.OK,
-                    headersOf("Content-Type" to listOf(ContentType.Application.Json.toString()))
+                    headersOf("Content-Type" to listOf(ContentType.Application.Json.toString())),
                 )
 
-                else -> respondError(HttpStatusCode.NotFound)
-            }
+            else -> respondError(HttpStatusCode.NotFound)
         }
+    }
 
-    private fun httpClient(jsonResponse: String, comicsId: Int = 0) =
-        HttpClient(mockEngine(jsonResponse, comicsId)) {
-            install(ContentNegotiation) {
-                json()
-            }
+    private fun httpClient(
+        jsonResponse: String,
+        comicsId: Int = 0,
+    ) = HttpClient(mockEngine(jsonResponse, comicsId)) {
+        install(ContentNegotiation) {
+            json()
         }
+    }
 
     private fun createApiWebComics(): ApiWebComics {
         val id = 160
@@ -103,7 +111,7 @@ class XkcdClientAdapterTest {
             alternativeText = "Sample alternative text for comic $id.",
             imageUrl = "https://imgs.xkcd.com/comics/penny_arcade_parody.png",
             news = "Sample news for comic $id.",
-            link = "https://xkcd.com/$id"
+            link = "https://xkcd.com/$id",
         )
     }
 }

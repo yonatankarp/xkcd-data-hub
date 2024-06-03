@@ -9,7 +9,6 @@ import kotlinx.coroutines.launch
 import org.koin.ktor.ext.inject
 import org.koin.ktor.plugin.Koin
 
-
 fun main(args: Array<String>) {
     io.ktor.server.netty.EngineMain.main(args)
 }
