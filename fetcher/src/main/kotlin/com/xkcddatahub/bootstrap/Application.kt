@@ -1,7 +1,7 @@
-package com.xkcddatahub
+package com.xkcddatahub.bootstrap
 
-import com.xkcddatahub.webcomics.XkcdService
-import com.xkcddatahub.webcomics.webComicsModule
+import com.xkcddatahub.application.usecases.GetAllXkcdComics
+import com.xkcddatahub.bootstrap.di.allModules
 import io.ktor.server.application.Application
 import io.ktor.server.application.install
 import kotlinx.coroutines.Dispatchers
@@ -16,11 +16,13 @@ fun main(args: Array<String>) {
 
 fun Application.module() {
     install(Koin) {
-        modules(webComicsModule)
+        modules(allModules)
     }
-    Database.init()
+
+    DatabaseInitializer(environment.config).init()
+
     launch(Dispatchers.IO) {
-        val service by inject<XkcdService>()
-        service.fetchAndStoreComics()
+        val getAllXkcdComics by inject<GetAllXkcdComics>()
+        getAllXkcdComics()
     }
 }

@@ -1,31 +1,10 @@
-package com.xkcddatahub.webcomics
+package com.xkcddatahub.adapters.output.database.postgres.table
 
 import com.xkcddatahub.DateTimeUtils.currentUtc
-import kotlinx.serialization.SerialName
-import kotlinx.serialization.Serializable
 import org.jetbrains.exposed.sql.Table
 import org.jetbrains.exposed.sql.javatime.datetime
 
-@Serializable
-data class WebComic(
-    @SerialName("num")
-    val id: Int,
-    val year: String,
-    val month: String,
-    val day: String,
-    val title: String,
-    @SerialName("safe_title")
-    val safeTitle: String,
-    val transcript: String,
-    @SerialName("alt")
-    val alternativeText: String,
-    @SerialName("img")
-    val imageUrl: String,
-    val news: String, // optional
-    val link: String, // optional
-)
-
-object WebComics : Table() {
+object WebComicsTable : Table("web_comics") {
     val id = integer("id")
     val year = text(name = "year")
     val month = text(name = "month")
