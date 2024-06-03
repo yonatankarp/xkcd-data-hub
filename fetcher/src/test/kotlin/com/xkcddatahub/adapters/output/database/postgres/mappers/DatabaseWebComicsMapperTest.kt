@@ -7,7 +7,6 @@ import io.kotest.matchers.shouldBe
 import kotlin.test.Test
 
 class DatabaseWebComicsMapperTest {
-
     @Test
     fun `test WebComics toData mapping`() {
         // Given
@@ -34,33 +33,37 @@ class DatabaseWebComicsMapperTest {
         actualDatabaseWebComics shouldBe expectedDatabaseWebComics
     }
 
-    private fun webComics(news: String? = null, link: String? = null) =
-        WebComics(
-            id = 1,
-            year = "2021",
-            month = "12",
-            day = "25",
-            title = "Christmas Special",
-            safeTitle = "Christmas_Special",
-            transcript = "A funny comic about Christmas.",
-            alternativeText = "Alt text for the comic",
-            imageUrl = "https://example.com/christmas_special.png",
-            news = news,
-            link = link
-        )
+    private fun webComics(
+        news: String? = null,
+        link: String? = null,
+    ) = WebComics(
+        id = 1,
+        year = "2021",
+        month = "12",
+        day = "25",
+        title = "Christmas Special",
+        safeTitle = "Christmas_Special",
+        transcript = "A funny comic about Christmas.",
+        alternativeText = "Alt text for the comic",
+        imageUrl = "https://example.com/christmas_special.png",
+        news = news,
+        link = link,
+    )
 
-    private fun databaseWebComics(news: String? = null, link: String? = null) =
-        DatabaseWebComics(
-            id = 1,
-            year = "2021",
-            month = "12",
-            day = "25",
-            title = "Christmas Special",
-            safeTitle = "Christmas_Special",
-            transcript = "A funny comic about Christmas.",
-            alternativeText = "Alt text for the comic",
-            imageUrl = "https://example.com/christmas_special.png",
-            news = news,
-            link = link
-        )
+    private fun databaseWebComics(
+        news: String? = null,
+        link: String? = null,
+    ) = DatabaseWebComics(
+        id = 1,
+        year = "2021",
+        month = "12",
+        day = "25",
+        title = "Christmas Special",
+        safeTitle = "Christmas_Special",
+        transcript = "A funny comic about Christmas.",
+        alternativeText = "Alt text for the comic",
+        imageUrl = "https://example.com/christmas_special.png",
+        news = news,
+        link = link,
+    )
 }

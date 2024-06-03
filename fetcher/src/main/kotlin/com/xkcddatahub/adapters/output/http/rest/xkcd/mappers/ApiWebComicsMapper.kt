@@ -16,6 +16,6 @@ object ApiWebComicsMapper {
             alternativeText = alternativeText,
             imageUrl = imageUrl,
             news = news,
-            link = link
+            link = link,
         )
 }

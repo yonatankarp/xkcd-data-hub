@@ -9,6 +9,7 @@ logback = "1.5.6"
 mockk = "1.13.11"
 pitest = "1.15.0"
 postgres = "42.7.3"
+spotless = "6.25.0"
 
 [libraries]
 
@@ -39,7 +40,7 @@ logback = { module = "ch.qos.logback:logback-classic", version.ref = "logback" }
 kotest_assertions_jvm = { module = "io.kotest:kotest-assertions-jvm", version.ref = "kotest" }
 kotlin_coroutines_test = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-test", version.ref = "coroutines" }
 kotlin_test_junit = { module = "org.jetbrains.kotlin:kotlin-test-junit5", version.ref = "kotlin" }
-ktor_client_mock = {module = "io.ktor:ktor-client-mock", version.ref = "ktor"}
+ktor_client_mock = { module = "io.ktor:ktor-client-mock", version.ref = "ktor" }
 ktor_tests = { module = "io.ktor:ktor-server-tests", version.ref = "ktor" }
 mockk = { module = "io.mockk:mockk", version.ref = "mockk" }
 
@@ -48,6 +49,7 @@ kotlin_jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }
 kotlin_serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
 ktor = { id = "io.ktor.plugin", version.ref = "ktor" }
 pitest = { id = "info.solidsoft.pitest", version.ref = "pitest" }
+spotless = { id = "com.diffplug.spotless", version.ref = "spotless" }
 
 [bundles]
 

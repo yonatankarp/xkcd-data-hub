@@ -7,7 +7,6 @@ import io.kotest.matchers.shouldBe
 import kotlin.test.Test
 
 class ApiWebComicsMapperTest {
-
     @Test
     fun `test ApiWebComics toDomain mapping`() {
         // Given
@@ -34,33 +33,37 @@ class ApiWebComicsMapperTest {
         actualDomainWebComics shouldBe expectedDomainWebComics
     }
 
-    private fun apiWebComics(news: String? = null, link: String? = null) =
-        ApiWebComics(
-            id = 2,
-            year = "2022",
-            month = "01",
-            day = "01",
-            title = "New Year Special",
-            safeTitle = "New_Year_Special",
-            transcript = "A funny comic about New Year.",
-            alternativeText = "Alt text for the New Year comic",
-            imageUrl = "https://example.com/new_year_special.png",
-            news = news,
-            link = link
-        )
+    private fun apiWebComics(
+        news: String? = null,
+        link: String? = null,
+    ) = ApiWebComics(
+        id = 2,
+        year = "2022",
+        month = "01",
+        day = "01",
+        title = "New Year Special",
+        safeTitle = "New_Year_Special",
+        transcript = "A funny comic about New Year.",
+        alternativeText = "Alt text for the New Year comic",
+        imageUrl = "https://example.com/new_year_special.png",
+        news = news,
+        link = link,
+    )
 
-    private fun webComics(news: String? = null, link: String? = null) =
-        WebComics(
-            id = 2,
-            year = "2022",
-            month = "01",
-            day = "01",
-            title = "New Year Special",
-            safeTitle = "New_Year_Special",
-            transcript = "A funny comic about New Year.",
-            alternativeText = "Alt text for the New Year comic",
-            imageUrl = "https://example.com/new_year_special.png",
-            news = news,
-            link = link
-        )
+    private fun webComics(
+        news: String? = null,
+        link: String? = null,
+    ) = WebComics(
+        id = 2,
+        year = "2022",
+        month = "01",
+        day = "01",
+        title = "New Year Special",
+        safeTitle = "New_Year_Special",
+        transcript = "A funny comic about New Year.",
+        alternativeText = "Alt text for the New Year comic",
+        imageUrl = "https://example.com/new_year_special.png",
+        news = news,
+        link = link,
+    )
 }

@@ -12,7 +12,6 @@ import kotlin.test.AfterTest
 import kotlin.test.Test
 
 class DateTimeUtilsTest {
-
     @AfterTest
     fun tearDown() {
         unmockkAll()
