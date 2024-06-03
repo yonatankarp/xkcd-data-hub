@@ -57,7 +57,14 @@ subprojects {
         }
 
         tasks.withType(KotlinCompile::class.java) {
-            dependsOn("spotlessCheck")
+            dependsOn("spotlessCheck", ":copyGitHooks")
         }
     }
 }
+
+tasks.register("copyGitHooks", Copy::class) {
+    from(".github/githooks")
+    into(".git/hooks")
+}
+
+
