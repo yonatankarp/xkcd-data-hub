@@ -1,6 +1,6 @@
 package com.xkcddatahub.adapters.output.database.postgres.table
 
-import com.xkcddatahub.DateTimeUtils.currentUtc
+import com.xkcddatahub.utilities.DateTimeUtils.currentUtc
 import org.jetbrains.exposed.sql.Table
 import org.jetbrains.exposed.sql.javatime.datetime
 

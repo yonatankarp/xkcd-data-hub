@@ -5,21 +5,24 @@ import com.xkcddatahub.application.ports.XkcdClientPort
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.withContext
+import org.slf4j.LoggerFactory
 
 class GetAllXkcdComics(
     private val client: XkcdClientPort,
     private val repository: WebComicsPort,
 ) {
+    private val logger = LoggerFactory.getLogger(GetAllXkcdComics::class.java)
+
     suspend operator fun invoke() =
         ioCoroutinesScope {
             val latestComicId = client.getLatestComicId()
             for (id in 1..latestComicId) {
                 runCatching {
-                    println("Fetching comic $id")
+                    logger.info("Fetching comic $id")
                     val comics = client.getComicsById(id)
                     repository.save(comics)
                 }
-                    .onFailure { exception -> println("Failed to fetch comic $exception") }
+                    .onFailure { exception -> logger.error("Failed to fetch comic $exception") }
             }
         }
 

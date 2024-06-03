@@ -1,4 +1,4 @@
-package com.xkcddatahub.utils
+package com.xkcddatahub.helpers
 
 object FilesUtils {
     fun readFileFromResources(fileName: String) =

@@ -23,11 +23,16 @@ subprojects {
                 targetClasses.set(listOf("com.xkcddatahub.*"))
                 threads.set(Runtime.getRuntime().availableProcessors())
                 outputFormats.set(listOf("XML", "HTML"))
+                junit5PluginVersion = "1.2.1"
                 timestampedReports.set(false)
                 excludedClasses = listOf(
                     "com.xkcddatahub.*.di.*"
                 )
             }
+        }
+
+        tasks.withType(Test::class) {
+            useJUnitPlatform()
         }
     }
 }

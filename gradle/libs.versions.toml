@@ -38,7 +38,7 @@ logback = { module = "ch.qos.logback:logback-classic", version.ref = "logback" }
 ## Tests
 kotest_assertions_jvm = { module = "io.kotest:kotest-assertions-jvm", version.ref = "kotest" }
 kotlin_coroutines_test = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-test", version.ref = "coroutines" }
-kotlin_test_junit = { module = "org.jetbrains.kotlin:kotlin-test-junit", version.ref = "kotlin" }
+kotlin_test_junit = { module = "org.jetbrains.kotlin:kotlin-test-junit5", version.ref = "kotlin" }
 ktor_client_mock = {module = "io.ktor:ktor-client-mock", version.ref = "ktor"}
 ktor_tests = { module = "io.ktor:ktor-server-tests", version.ref = "ktor" }
 mockk = { module = "io.mockk:mockk", version.ref = "mockk" }
