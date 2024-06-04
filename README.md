@@ -55,8 +55,8 @@ it all up to your eager fingertips. That's what this project is all about! 🎉
 
 The project contains multiple submodules. Here's a brief overview of each:
 * [Fetcher](./fetcher/README) - Built using ktor, collects information about
-  XKCD comics, and streams it to the projection service.
+XKCD comics, and streams it to the projection service.
 * [Projection](./projection/README) - stores and serves XKCD comic data to
-   clients.
+clients.
 * [App](./app/README) - provides a user interface to interact with the XKCD
-   data via API.
+data via API.
