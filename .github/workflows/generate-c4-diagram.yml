@@ -1,36 +1,33 @@
-name: Generate Docs
+name: Generate PUML Diagram
 
 on:
-  push:
+  pull_request:
     paths:
-      - 'docs/c4/**.dsl'
-    branches-ignore:
-      - main
+      - 'docs/c4/**.puml'
+  workflow_dispatch:
 
 jobs:
-  Generate-C4-Diagrams:
+  generate-diagram:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
     steps:
-
-      - name: Checkout
-        uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11
+      - name: Git Checkout
+        uses: actions/checkout@v4
         with:
-          token: ${{ secrets.REVIEWER_GITHUB_TOKEN }}
+          fetch-depth: 0
 
-      - name: Remove old diagrams
-        run: |
-          git rm -f docs/c4/*.png
-
-      - name: Generate diagrams
-        uses: university-of-york/generate-c4-model-action@1.0.0
+      - name: Create Diagram PNG
+        uses: Timmy/plantuml-action@v1
         with:
-          source-path: docs/c4/architecture.dsl
-          target-path: docs/c4
+          args: './docs/c4/architecture.puml'
 
-      - name: Push to branch if diagrams changed
+      - name: Commit Diagram to Branch
         run: |
-          git config user.name github-actions
-          git config user.email github-actions@github.com
-          git add docs/c4/*.png
-          git commit -m "C4 diagrams generated" || exit 0
-          git push
+          git config --global user.name 'github-actions'
+          git config --global user.email 'github-actions@github.com'
+          git add .
+          git diff-index --quiet HEAD || git commit -m 'Update architecture diagram'
+          git push origin HEAD:${{ github.head_ref }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
