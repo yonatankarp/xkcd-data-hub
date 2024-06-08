@@ -12,16 +12,10 @@ concurrency:
 
 jobs:
   pipeline:
-    permissions:
-      contents: write
-      pull-requests: write
-      repository-projects: write
     strategy:
       fail-fast: false
       matrix:
-        service: [
-          fetcher
-        ]
+        service: [ fetcher ]
     uses: yonatankarp/github-actions/.github/workflows/ci.yml@v1
     with:
       app_name: ${{ matrix.service }}
@@ -35,8 +29,4 @@ jobs:
       GITHUB_PAT: ${{ secrets.PAT }}
 
   linters:
-    permissions:
-      contents: write
-      pull-requests: write
-      repository-projects: write
     uses: yonatankarp/github-actions/.github/workflows/linters.yml@v1
