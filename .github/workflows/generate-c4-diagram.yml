@@ -22,12 +22,12 @@ jobs:
         with:
           args: './docs/c4/architecture.puml'
 
-      - name: Commit Diagram to Branch
+      - name: Check for Diagram Changes
         run: |
-          git config --global user.name 'github-actions'
-          git config --global user.email 'github-actions@github.com'
-          git add .
-          git diff-index --quiet HEAD || git commit -m 'Update architecture diagram'
-          git push origin HEAD:${{ github.head_ref }}
+          git add ./docs/c4/architecture.png
+          if ! git diff --cached --exit-code; then
+            echo "Diagrams do not match. You can re-generate the diagram by running the command plantuml docs/c4/architecture.puml."
+            exit 1
+          fi
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
