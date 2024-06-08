@@ -1,0 +1,42 @@
+∂@startuml "headers"
+
+!include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Container.puml
+!include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Component.puml
+!define ICONURL https://raw.githubusercontent.com/tupadr3/plantuml-icon-font-sprites/v2.4.0
+!define DEVICONS ICONURL/devicons
+!define DEVICONS2 ICONURL/devicons2
+!define FONTAWESOME ICONURL/font-awesome-5
+!define SPRITESURL https://raw.githubusercontent.com/rabelenda/cicon-plantuml-sprites/v1.0/sprites
+!include SPRITESURL/cassandra.puml
+!include SPRITESURL/elasticsearch.puml
+!include DEVICONS/react.puml
+!include DEVICONS/java.puml
+!include DEVICONS/javascript.puml
+!include DEVICONS/postgresql.puml
+!include DEVICONS/redis.puml
+!include DEVICONS/android.puml
+!include DEVICONS/apple.puml
+!include DEVICONS/windows.puml
+!include DEVICONS/linux.puml
+!include DEVICONS/ruby.puml
+!include DEVICONS/php.puml
+!include DEVICONS/nodejs.puml
+!include DEVICONS/go.puml
+!include DEVICONS2/kotlin.puml
+!include FONTAWESOME/users.puml
+!include xkcd_colors.puml
+
+AddElementTag("microservice", $shape=EightSidedShape(), $bgColor=$COLOR_BLUE, $fontColor="white")
+AddElementTag("external microservice", $shape=EightSidedShape(), $bgColor=$COLOR_RED, $fontColor="white")
+AddElementTag("storage", $shape=RoundedBoxShape(), $bgColor=$COLOR_GREEN, $fontColor="white")
+AddElementTag("external storage", $shape=RoundedBoxShape(), $bgColor=$COLOR_BLACK, $fontColor="white")
+UpdateElementStyle(person, $bgColor=$COLOR_PURPLE, $fontColor=$COLOR_WHITE)
+UpdateElementStyle(container, $bgColor=$COLOR_BLUE, $fontColor=$COLOR_WHITE)
+UpdateElementStyle(external_container, $bgColor=$COLOR_ORANGE, $fontColor=$COLOR_WHITE)
+UpdateElementStyle(external_system, $bgColor=$COLOR_RED, $fontColor=$COLOR_WHITE)
+UpdateElementStyle(component, $bgColor=$COLOR_YELLOW, $fontColor=$COLOR_BLACK)
+UpdateElementStyle(system, $bgColor=$COLOR_YELLOW, $fontColor=$COLOR_BLACK)
+
+SHOW_PERSON_OUTLINE()
+
+@enduml

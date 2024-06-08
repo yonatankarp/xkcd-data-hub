@@ -1,0 +1,56 @@
+@startuml "architecture"
+!include xkcd_headers.puml
+
+LAYOUT_WITH_LEGEND()
+
+title C4 Container Diagram for XKCD Fetcher System
+
+'Clients (devices)'
+Person(android, "Android app", "<$android>")
+Person(ios, "iOS app", "<$apple>")
+Person(windows, "Windows", "<$windows>")
+Person(mac, "Mac", "<$apple>")
+Person(linux, "Linux", "<$linux>")
+
+'External Systems'
+System_Boundary(external_api, "External Systems") {
+   System_Ext(xkcd_api, "XKCD API", "External XKCD API to fetch comic data.")
+   System_Ext(auth_provider, "Authentication Provider", "External system for authentication services.")
+}
+
+'Kubernetes Cluster'
+System_Boundary(k8s, "Kubernetes Cluster") {
+    Container(api_gateway, "API Gateway", "Ktor, Kotlin", "Handles client requests and routes them to appropriate services.", $sprite="kotlin")
+    Container(auth_service, "Authentication Service", "Ktor, Kotlin + Keycloak", "Handles authentication and authorization.", $sprite="kotlin")
+    Container(xkcd_fetcher, "XKCD Fetcher Service", "Ktor, Kotlin", "Fetches data from the XKCD API periodically.", $sprite="kotlin")
+    Container(data_processor, "Data Processor Service", "Ktor, Kotlin", "Processes the fetched XKCD data.", $sprite="kotlin")
+    Container(notification_service, "Client Notification Service", "Ktor, Kotlin", "Notifies clients about new data availability.", $sprite="kotlin")
+
+    ContainerDb(postgresql, "PostgreSQL", "Database", "Stores fetched XKCD data.", $sprite="postgresql")
+    ContainerDb(redis, "Redis", "Cache", "Caches frequently accessed data.", $sprite="redis")
+    ContainerQueue(kafka, "Kafka", "Message Queue", "Handles messaging between services.")
+    ContainerDb(elasticsearch, "Elasticsearch", "Search Engine", "Stores processed data for search.")
+
+    Rel(android, api_gateway, "Uses")
+    Rel(ios, api_gateway, "Uses")
+    Rel(windows, api_gateway, "Uses")
+    Rel(mac, api_gateway, "Uses")
+    Rel(linux, api_gateway, "Uses")
+    Rel(api_gateway, auth_service, "Routes auth requests to")
+    Rel(api_gateway, data_processor, "Routes data processing requests to")
+    Rel(api_gateway, notification_service, "Routes notification requests to")
+
+    Rel(notification_service, kafka, "Publishes")
+    Rel_D(xkcd_fetcher, xkcd_api, "Fetches data from", "HTTP")
+    Rel(auth_service, auth_provider, "Authenticates with", "OAuth")
+    Rel(xkcd_fetcher, postgresql, "Stores data in", "JDBC")
+    Rel(xkcd_fetcher, kafka, "Publishes to")
+    Rel(data_processor, kafka, "Consumes from")
+    Rel(data_processor, redis, "Caches data in")
+    Rel(data_processor, elasticsearch, "Stores processed data in")
+
+}
+
+SHOW_LEGEND()
+
+@enduml
