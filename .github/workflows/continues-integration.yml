@@ -22,7 +22,7 @@ jobs:
       build_dockerfile: false # Temp disable build until dockerfile will be set
 
   dependabot_auto_merge:
-    needs: pipeline
+#    needs: pipeline
     if: ${{ github.event_name == 'pull_request_target' && github.actor == 'dependabot[bot]' }}
     uses: yonatankarp/github-actions/.github/workflows/dependabot-auto-merge.yml@v1
     secrets:
