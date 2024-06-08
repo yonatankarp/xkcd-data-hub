@@ -60,3 +60,8 @@ XKCD comics, and streams it to the projection service.
 clients.
 * [App](./app/README) - provides a user interface to interact with the XKCD
 data via API.
+
+### Target Architecture
+
+The following diagram describes the end goal of this repository:
+
