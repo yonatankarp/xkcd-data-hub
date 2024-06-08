@@ -48,7 +48,6 @@ System_Boundary(k8s, "Kubernetes Cluster") {
     Rel(data_processor, kafka, "Consumes from")
     Rel(data_processor, redis, "Caches data in")
     Rel(data_processor, elasticsearch, "Stores processed data in")
-
 }
 
 SHOW_LEGEND()
