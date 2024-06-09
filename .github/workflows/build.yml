@@ -12,7 +12,8 @@ jobs:
   test:
     runs-on: ubuntu-latest
     steps:
-      - runs: echo "Hello, world!"
+      - run: echo "Hello, world!"
+        shell: bash
 #  pipeline:
 #    uses: yonatankarp/github-actions/.github/workflows/ci.yml@v1
 #    with:
