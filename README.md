@@ -66,3 +66,4 @@ data via API.
 The following diagram describes the end goal of this repository:
 
 ![target architecture](docs/c4/architecture.png)
+
