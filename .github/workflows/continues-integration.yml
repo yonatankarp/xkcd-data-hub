@@ -9,11 +9,15 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  pipeline:
-    uses: yonatankarp/github-actions/.github/workflows/ci.yml@v1
-    with:
-      app_name: fetcher
-      build_dockerfile: false # Temp disable build until dockerfile will be set
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - runs: echo "Hello, world!"
+#  pipeline:
+#    uses: yonatankarp/github-actions/.github/workflows/ci.yml@v1
+#    with:
+#      app_name: fetcher
+#      build_dockerfile: false # Temp disable build until dockerfile will be set
 
 #  dependabot_auto_merge:
 #    needs: pipeline
