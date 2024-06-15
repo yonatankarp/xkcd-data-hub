@@ -4,7 +4,6 @@ on:
   pull_request:
     paths:
       - 'docs/c4/**.puml'
-  workflow_dispatch:
 
 jobs:
   generate-diagram:
