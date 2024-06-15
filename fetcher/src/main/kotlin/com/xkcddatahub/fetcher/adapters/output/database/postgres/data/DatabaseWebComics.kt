@@ -5,9 +5,9 @@ import kotlinx.serialization.Serializable
 @Serializable
 data class DatabaseWebComics(
     val id: Int,
-    val year: String,
-    val month: String,
-    val day: String,
+    val year: Int,
+    val month: Int,
+    val day: Int,
     val title: String,
     val safeTitle: String,
     val transcript: String,

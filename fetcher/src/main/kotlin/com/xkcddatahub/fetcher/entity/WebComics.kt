@@ -2,9 +2,9 @@ package com.xkcddatahub.fetcher.entity
 
 data class WebComics(
     val id: Int,
-    val year: String,
-    val month: String,
-    val day: String,
+    val year: Int,
+    val month: Int,
+    val day: Int,
     val title: String,
     val safeTitle: String,
     val transcript: String,
