@@ -17,7 +17,10 @@ jobs:
       fail-fast: false
       matrix:
         service: [
-          fetcher
+          gateway,
+          fetcher,
+          data-processor,
+          client-app
         ]
     uses: yonatankarp/github-actions/.github/workflows/ci.yml@v1
     with:
