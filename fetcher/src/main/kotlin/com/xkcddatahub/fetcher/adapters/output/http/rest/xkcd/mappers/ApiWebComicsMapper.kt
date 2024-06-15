@@ -7,9 +7,9 @@ object ApiWebComicsMapper {
     fun ApiWebComics.toDomain() =
         WebComics(
             id = id,
-            year = year,
-            month = month,
-            day = day,
+            year = year.toInt(),
+            month = month.toInt(),
+            day = day.toInt(),
             title = title,
             safeTitle = safeTitle,
             transcript = transcript,

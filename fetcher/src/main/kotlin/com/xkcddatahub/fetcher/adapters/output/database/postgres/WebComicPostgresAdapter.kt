@@ -3,7 +3,7 @@ package com.xkcddatahub.fetcher.adapters.output.database.postgres
 import com.xkcddatahub.fetcher.adapters.output.database.postgres.mappers.DatabaseWebComicsMapper.toData
 import com.xkcddatahub.fetcher.adapters.output.database.postgres.table.WebComicsTable
 import com.xkcddatahub.fetcher.application.ports.WebComicsPort
-import com.xkcddatahub.fetcher.bootstrap.DatabaseInitializer.Companion.dbQuery
+import com.xkcddatahub.fetcher.bootstrap.DatabaseFactory.Companion.dbQuery
 import com.xkcddatahub.fetcher.entity.WebComics
 import org.jetbrains.exposed.sql.insert
 import org.jetbrains.exposed.sql.max

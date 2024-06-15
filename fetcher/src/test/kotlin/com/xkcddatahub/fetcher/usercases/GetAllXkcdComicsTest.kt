@@ -90,9 +90,9 @@ class GetAllXkcdComicsTest {
     private fun createTestWebComics(id: Int = 1) =
         WebComics(
             id = id,
-            year = "2023",
-            month = "06",
-            day = "01",
+            year = 2023,
+            month = 6,
+            day = 1,
             title = "Sample Comic $id",
             safeTitle = "Sample_Comic_$id",
             transcript = "This is a sample transcript for comic $id.",

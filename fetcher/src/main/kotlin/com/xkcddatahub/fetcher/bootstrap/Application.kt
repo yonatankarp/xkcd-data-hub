@@ -18,7 +18,7 @@ fun Application.module() {
         modules(allModules)
     }
 
-    DatabaseInitializer(environment.config).init()
+    DatabaseFactory(environment.config).init()
 
     launch(Dispatchers.IO) {
         val getAllXkcdComics by inject<GetAllXkcdComics>()

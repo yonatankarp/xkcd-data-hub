@@ -55,9 +55,9 @@ class ApiWebComicsMapperTest {
         link: String? = null,
     ) = WebComics(
         id = 2,
-        year = "2022",
-        month = "01",
-        day = "01",
+        year = 2022,
+        month = 1,
+        day = 1,
         title = "New Year Special",
         safeTitle = "New_Year_Special",
         transcript = "A funny comic about New Year.",
