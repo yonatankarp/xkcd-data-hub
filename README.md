@@ -54,12 +54,14 @@ it all up to your eager fingertips. That's what this project is all about! 🎉
 ### Architecture
 
 The project contains multiple submodules. Here's a brief overview of each:
+* [Gateway](./gateway/README) - A facade for the client application to interact
+with.
 * [Fetcher](./fetcher/README) - Built using ktor, collects information about
 XKCD comics, and streams it to the projection service.
-* [Projection](./projection/README) - stores and serves XKCD comic data to
-clients.
-* [App](./app/README) - provides a user interface to interact with the XKCD
-data via API.
+* [Data Processor](./data-processor/README) - stores and serves XKCD comic data
+to clients.
+* [Client Application](./client-app/README) - provides a user interface to
+interact with the XKCD data via API.
 
 ### Target Architecture
 
