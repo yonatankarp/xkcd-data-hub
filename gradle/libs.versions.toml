@@ -20,7 +20,6 @@ ktor_client_cio = { module = "io.ktor:ktor-client-cio", version.ref = "ktor" }
 ktor_client_content_negotiation = { module = "io.ktor:ktor-client-content-negotiation", version.ref = "ktor" }
 ktor_core = { module = "io.ktor:ktor-server-core", version.ref = "ktor" }
 ktor_serialization_kotlinx_json = { module = "io.ktor:ktor-serialization-kotlinx-json", version.ref = "ktor" }
-ktor_server_config_yaml = { module = "io.ktor:ktor-server-config-yaml", version.ref = "ktor" }
 ktor_server_netty_jvm = { module = "io.ktor:ktor-server-netty", version.ref = "ktor" }
 
 ## DI
@@ -62,7 +61,6 @@ ktor_all = [
     "ktor_client_content_negotiation",
     "ktor_core",
     "ktor_serialization_kotlinx_json",
-    "ktor_server_config_yaml",
     "ktor_server_netty_jvm",
 ]
 
