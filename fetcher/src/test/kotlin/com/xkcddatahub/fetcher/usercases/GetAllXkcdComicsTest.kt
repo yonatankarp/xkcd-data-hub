@@ -3,7 +3,7 @@ package com.xkcddatahub.fetcher.usercases
 import com.xkcddatahub.fetcher.application.ports.WebComicsPort
 import com.xkcddatahub.fetcher.application.ports.XkcdClientPort
 import com.xkcddatahub.fetcher.application.usecases.GetAllXkcdComics
-import com.xkcddatahub.fetcher.entity.WebComics
+import com.xkcddatahub.fetcher.domain.entity.WebComics
 import io.mockk.clearAllMocks
 import io.mockk.coEvery
 import io.mockk.coVerify
