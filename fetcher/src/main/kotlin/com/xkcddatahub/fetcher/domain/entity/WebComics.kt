@@ -1,4 +1,4 @@
-package com.xkcddatahub.fetcher.entity
+package com.xkcddatahub.fetcher.domain.entity
 
 data class WebComics(
     val id: Int,

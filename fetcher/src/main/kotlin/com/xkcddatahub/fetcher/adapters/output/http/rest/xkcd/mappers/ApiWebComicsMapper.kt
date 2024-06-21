@@ -1,7 +1,7 @@
 package com.xkcddatahub.fetcher.adapters.output.http.rest.xkcd.mappers
 
 import com.xkcddatahub.fetcher.adapters.output.http.rest.xkcd.data.ApiWebComics
-import com.xkcddatahub.fetcher.entity.WebComics
+import com.xkcddatahub.fetcher.domain.entity.WebComics
 
 object ApiWebComicsMapper {
     fun ApiWebComics.toDomain() =

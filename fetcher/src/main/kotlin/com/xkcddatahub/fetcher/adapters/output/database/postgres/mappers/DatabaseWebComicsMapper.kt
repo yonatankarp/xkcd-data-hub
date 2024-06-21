@@ -1,7 +1,7 @@
 package com.xkcddatahub.fetcher.adapters.output.database.postgres.mappers
 
 import com.xkcddatahub.fetcher.adapters.output.database.postgres.data.DatabaseWebComics
-import com.xkcddatahub.fetcher.entity.WebComics
+import com.xkcddatahub.fetcher.domain.entity.WebComics
 
 object DatabaseWebComicsMapper {
     fun WebComics.toData() =
