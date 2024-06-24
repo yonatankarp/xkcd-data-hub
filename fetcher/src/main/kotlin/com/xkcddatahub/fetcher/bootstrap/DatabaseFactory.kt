@@ -8,12 +8,12 @@ import org.flywaydb.core.Flyway
 import org.jetbrains.exposed.sql.Database
 import org.jetbrains.exposed.sql.transactions.experimental.newSuspendedTransaction
 
-class DatabaseFactory(config: ApplicationConfig) {
-    private val url = config.property("ktor.database.url").getString()
-    private val driver = config.property("ktor.database.driver").getString()
-    private val username = config.property("ktor.database.user").getString()
-    private val password = config.property("ktor.database.password").getString()
-
+class DatabaseFactory(
+    private val url: String,
+    private val driver: String,
+    private val username: String,
+    private val password: String,
+) {
     fun init() {
         val connection = hikari()
         Database.connect(connection)
@@ -40,6 +40,14 @@ class DatabaseFactory(config: ApplicationConfig) {
     }
 
     companion object {
+        fun from(config: ApplicationConfig): DatabaseFactory =
+            DatabaseFactory(
+                url = config.property("ktor.database.url").getString(),
+                driver = config.property("ktor.database.driver").getString(),
+                username = config.property("ktor.database.user").getString(),
+                password = config.property("ktor.database.password").getString(),
+            )
+
         suspend fun <T> dbQuery(block: suspend () -> T): T =
             newSuspendedTransaction(
                 Dispatchers.IO,

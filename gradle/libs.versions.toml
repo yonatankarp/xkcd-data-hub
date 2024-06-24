@@ -12,6 +12,7 @@ mockk = "1.13.11"
 pitest = "1.15.0"
 postgres = "42.7.3"
 spotless = "6.25.0"
+testContainers = "1.19.8"
 
 [libraries]
 
@@ -46,6 +47,8 @@ kotlin_test_junit = { module = "org.jetbrains.kotlin:kotlin-test-junit5", versio
 ktor_client_mock = { module = "io.ktor:ktor-client-mock", version.ref = "ktor" }
 ktor_tests = { module = "io.ktor:ktor-server-tests", version.ref = "ktor" }
 mockk = { module = "io.mockk:mockk", version.ref = "mockk" }
+test_containers = { module = "org.testcontainers:junit-jupiter", version.ref = "testContainers" }
+test_containers_postgres = { module = "org.testcontainers:postgresql", version.ref = "testContainers" }
 
 [plugins]
 kotlin_jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }
@@ -72,6 +75,11 @@ persistance_all = [
     "flyway",
     "hikari",
     "postgres_driver",
+]
+
+persistance_test_all = [
+    "test_containers",
+    "test_containers_postgres",
 ]
 
 tests_all = [

@@ -5,14 +5,14 @@ import com.xkcddatahub.fetcher.adapters.output.database.postgres.table.WebComics
 import com.xkcddatahub.fetcher.application.ports.WebComicsPort
 import com.xkcddatahub.fetcher.bootstrap.DatabaseFactory.Companion.dbQuery
 import com.xkcddatahub.fetcher.domain.entity.WebComics
-import org.jetbrains.exposed.sql.insert
+import org.jetbrains.exposed.sql.insertIgnore
 import org.jetbrains.exposed.sql.max
 
 class WebComicPostgresAdapter : WebComicsPort {
     override suspend fun save(comics: WebComics): Boolean =
         dbQuery {
             val data = comics.toData()
-            WebComicsTable.insert {
+            WebComicsTable.insertIgnore {
                 it[id] = data.id
                 it[year] = data.year
                 it[month] = data.month

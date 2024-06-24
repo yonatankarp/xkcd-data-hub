@@ -20,7 +20,7 @@ fun Application.module() {
         modules(allModules)
     }
 
-    DatabaseFactory(environment.config).init()
+    DatabaseFactory.from(environment.config).init()
 
     fetchXkcdComics()
 }
