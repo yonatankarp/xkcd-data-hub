@@ -17,4 +17,5 @@ dependencies {
     implementation(libs.bundles.persistance.all)
     implementation(libs.logback)
     testImplementation(libs.bundles.tests.all)
+    testImplementation(libs.bundles.persistance.test.all)
 }
