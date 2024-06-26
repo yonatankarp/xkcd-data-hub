@@ -1,4 +1,4 @@
-package com.xkcddatahub.fetcher.output.http.rest.xkcd.mappers
+package com.xkcddatahub.fetcher.adapters.output.http.rest.xkcd.mappers
 
 import com.xkcddatahub.fetcher.adapters.output.http.rest.xkcd.data.ApiWebComics
 import com.xkcddatahub.fetcher.adapters.output.http.rest.xkcd.mappers.ApiWebComicsMapper.toDomain

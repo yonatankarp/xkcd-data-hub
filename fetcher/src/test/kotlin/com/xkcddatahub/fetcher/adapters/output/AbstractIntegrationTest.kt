@@ -1,4 +1,4 @@
-package com.xkcddatahub.fetcher.output
+package com.xkcddatahub.fetcher.adapters.output
 
 import com.xkcddatahub.fetcher.bootstrap.DatabaseFactory
 import org.junit.jupiter.api.AfterAll

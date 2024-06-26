@@ -1,6 +1,5 @@
-package com.xkcddatahub.fetcher.output.http.rest.xkcd
+package com.xkcddatahub.fetcher.adapters.output.http.rest.xkcd
 
-import com.xkcddatahub.fetcher.adapters.output.http.rest.xkcd.XkcdClientAdapter
 import com.xkcddatahub.fetcher.adapters.output.http.rest.xkcd.data.ApiWebComics
 import com.xkcddatahub.fetcher.adapters.output.http.rest.xkcd.mappers.ApiWebComicsMapper.toDomain
 import com.xkcddatahub.helpers.FilesUtils.readFileFromResources

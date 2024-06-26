@@ -1,10 +1,9 @@
-package com.xkcddatahub.fetcher.output.database.postgres
+package com.xkcddatahub.fetcher.adapters.output.database.postgres
 
-import com.xkcddatahub.fetcher.adapters.output.database.postgres.WebComicPostgresAdapter
+import com.xkcddatahub.fetcher.adapters.output.AbstractIntegrationTest
 import com.xkcddatahub.fetcher.adapters.output.database.postgres.table.WebComicsTable
 import com.xkcddatahub.fetcher.bootstrap.DatabaseFactory.Companion.dbQuery
 import com.xkcddatahub.fetcher.domain.entity.WebComics
-import com.xkcddatahub.fetcher.output.AbstractIntegrationTest
 import io.kotest.matchers.shouldBe
 import kotlinx.coroutines.async
 import kotlinx.coroutines.awaitAll
