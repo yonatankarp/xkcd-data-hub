@@ -1,4 +1,4 @@
-package com.xkcddatahub.fetcher.output.database.postgres.mappers
+package com.xkcddatahub.fetcher.adapters.output.database.postgres.mappers
 
 import com.xkcddatahub.fetcher.adapters.output.database.postgres.data.DatabaseWebComics
 import com.xkcddatahub.fetcher.adapters.output.database.postgres.mappers.DatabaseWebComicsMapper.toData

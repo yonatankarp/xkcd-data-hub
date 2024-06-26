@@ -1,4 +1,4 @@
-package com.xkcddatahub.fetcher.usercases
+package com.xkcddatahub.fetcher.application.usercases
 
 import com.xkcddatahub.fetcher.application.ports.WebComicsPort
 import com.xkcddatahub.fetcher.application.ports.XkcdClientPort
