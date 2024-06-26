@@ -1,6 +1,6 @@
 [versions]
 coroutines = "1.8.1"
-exposed = "0.51.1"
+exposed = "0.52.0"
 flyway = "10.15.0"
 hikari = "5.1.0"
 koin = "3.5.6"
