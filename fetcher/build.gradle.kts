@@ -16,6 +16,7 @@ dependencies {
     implementation(libs.koin)
     implementation(libs.bundles.persistance.all)
     implementation(libs.logback)
+    testImplementation(libs.koin.test)
     testImplementation(libs.bundles.tests.all)
     testImplementation(libs.bundles.persistance.test.all)
 }
