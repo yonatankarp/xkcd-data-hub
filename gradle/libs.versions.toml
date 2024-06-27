@@ -25,6 +25,7 @@ ktor_server_netty_jvm = { module = "io.ktor:ktor-server-netty", version.ref = "k
 
 ## DI
 koin = { module = "io.insert-koin:koin-ktor", version.ref = "koin" }
+koin_test = { module = "io.insert-koin:koin-test", version.ref = "koin" }
 
 ## Exposed
 exposed_core = { module = "org.jetbrains.exposed:exposed-core", version.ref = "exposed" }
