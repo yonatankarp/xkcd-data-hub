@@ -6,8 +6,8 @@ import com.xkcddatahub.fetcher.application.ports.WebComicsPort
 import com.xkcddatahub.fetcher.application.ports.XkcdClientPort
 import org.koin.dsl.module
 
-val adapterModule =
+fun adapterModule(xkcdBaseUrl: String) =
     module {
-        single<XkcdClientPort> { XkcdClientAdapter(get()) }
+        single<XkcdClientPort> { XkcdClientAdapter(get(), xkcdBaseUrl) }
         single<WebComicsPort> { WebComicPostgresAdapter() }
     }
