@@ -26,7 +26,7 @@ class XkcdClientAdapterTest {
             val jsonResponse =
                 readFileFromResources("responses/xkcd/latest-index.json")
             val client = httpClient(jsonResponse)
-            val xkcdClientAdapter = XkcdClientAdapter(client)
+            val xkcdClientAdapter = XkcdClientAdapter(client, XKCD_BASE_URL)
 
             // When
             val actualId = xkcdClientAdapter.getLatestComicId()
@@ -45,7 +45,7 @@ class XkcdClientAdapterTest {
                 readFileFromResources("responses/xkcd/webcomics.json")
 
             val client = httpClient(jsonResponse, comicId)
-            val xkcdClientAdapter = XkcdClientAdapter(client)
+            val xkcdClientAdapter = XkcdClientAdapter(client, XKCD_BASE_URL)
 
             // When
             val actualWebComics = xkcdClientAdapter.getComicsById(comicId)
@@ -64,7 +64,7 @@ class XkcdClientAdapterTest {
                 readFileFromResources("responses/xkcd/webcomics.json")
 
             val client = httpClient(jsonResponse, comicId)
-            val xkcdClientAdapter = XkcdClientAdapter(client)
+            val xkcdClientAdapter = XkcdClientAdapter(client, XKCD_BASE_URL)
 
             // When
             val actualWebComics = xkcdClientAdapter.getComicsById(comicId)
@@ -113,5 +113,9 @@ class XkcdClientAdapterTest {
             news = "Sample news for comic $id.",
             link = "https://xkcd.com/$id",
         )
+    }
+
+    companion object {
+        private const val XKCD_BASE_URL = "https://xkcd.com"
     }
 }
