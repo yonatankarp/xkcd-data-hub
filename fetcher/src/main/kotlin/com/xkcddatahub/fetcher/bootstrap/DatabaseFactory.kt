@@ -48,7 +48,7 @@ class DatabaseFactory(
                 password = config.property("ktor.database.password").getString(),
             )
 
-        suspend fun <T> dbQuery(block: suspend () -> T): T =
+        suspend fun <T> transaction(block: suspend () -> T): T =
             newSuspendedTransaction(
                 Dispatchers.IO,
             ) { block() }

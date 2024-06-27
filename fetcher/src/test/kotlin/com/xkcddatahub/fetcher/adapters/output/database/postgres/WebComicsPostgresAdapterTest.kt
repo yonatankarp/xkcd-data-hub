@@ -2,7 +2,7 @@ package com.xkcddatahub.fetcher.adapters.output.database.postgres
 
 import com.xkcddatahub.fetcher.adapters.output.AbstractIntegrationTest
 import com.xkcddatahub.fetcher.adapters.output.database.postgres.table.WebComicsTable
-import com.xkcddatahub.fetcher.bootstrap.DatabaseFactory.Companion.dbQuery
+import com.xkcddatahub.fetcher.bootstrap.DatabaseFactory.Companion.transaction
 import com.xkcddatahub.fetcher.domain.entity.WebComics
 import io.kotest.matchers.shouldBe
 import kotlinx.coroutines.async
@@ -19,7 +19,7 @@ class WebComicsPostgresAdapterTest : AbstractIntegrationTest() {
     @BeforeEach
     fun setup() =
         runTest {
-            dbQuery {
+            transaction {
                 SchemaUtils.create(WebComicsTable)
             }
         }
@@ -27,7 +27,7 @@ class WebComicsPostgresAdapterTest : AbstractIntegrationTest() {
     @AfterEach
     fun tearDown() =
         runTest {
-            dbQuery {
+            transaction {
                 SchemaUtils.drop(WebComicsTable)
             }
         }
@@ -45,7 +45,7 @@ class WebComicsPostgresAdapterTest : AbstractIntegrationTest() {
             // Then
             result shouldBe true
 
-            val storedComics = dbQuery { WebComicsTable.selectAll().toList() }
+            val storedComics = transaction { WebComicsTable.selectAll().toList() }
             storedComics.size shouldBe 1
 
             val storedComic = storedComics.first()
@@ -66,7 +66,7 @@ class WebComicsPostgresAdapterTest : AbstractIntegrationTest() {
             // Then
             result shouldBe false
 
-            val storedComics = dbQuery { WebComicsTable.selectAll().toList() }
+            val storedComics = transaction { WebComicsTable.selectAll().toList() }
             storedComics.size shouldBe 1
         }
 
@@ -83,7 +83,7 @@ class WebComicsPostgresAdapterTest : AbstractIntegrationTest() {
             // Then
             result shouldBe true
 
-            val storedComics = dbQuery { WebComicsTable.selectAll().toList() }
+            val storedComics = transaction { WebComicsTable.selectAll().toList() }
             storedComics.size shouldBe 1
 
             val storedComic = storedComics.first()
@@ -105,7 +105,7 @@ class WebComicsPostgresAdapterTest : AbstractIntegrationTest() {
 
             // Then
             results.forEach { it shouldBe true }
-            val storedComics = dbQuery { WebComicsTable.selectAll().toList() }
+            val storedComics = transaction { WebComicsTable.selectAll().toList() }
             storedComics.size shouldBe 100
         }
 
