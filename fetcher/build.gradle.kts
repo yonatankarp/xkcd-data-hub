@@ -14,9 +14,11 @@ application {
 dependencies {
     implementation(libs.bundles.ktor.all)
     implementation(libs.koin)
+    implementation(libs.bundles.exposed.all)
     implementation(libs.bundles.persistance.all)
     implementation(libs.logback)
     testImplementation(libs.koin.test)
     testImplementation(libs.bundles.tests.all)
+    testImplementation(libs.bundles.ktor.test.all)
     testImplementation(libs.bundles.persistance.test.all)
 }
