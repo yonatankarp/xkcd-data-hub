@@ -34,8 +34,8 @@ class ApiWebComicsMapperTest {
     }
 
     private fun apiWebComics(
-        news: String? = null,
-        link: String? = null,
+        news: String = "",
+        link: String = "",
     ) = ApiWebComics(
         id = 2,
         year = "2022",

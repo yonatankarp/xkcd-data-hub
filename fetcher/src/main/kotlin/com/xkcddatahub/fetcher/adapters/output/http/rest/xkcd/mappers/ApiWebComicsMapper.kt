@@ -15,7 +15,7 @@ object ApiWebComicsMapper {
             transcript = transcript,
             alternativeText = alternativeText,
             imageUrl = imageUrl,
-            news = news,
-            link = link,
+            news = news?.takeIf { it.isNotBlank() },
+            link = link?.takeIf { it.isNotBlank() },
         )
 }
