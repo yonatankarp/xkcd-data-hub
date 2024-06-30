@@ -1,4 +1,5 @@
 [versions]
+
 coroutines = "1.8.1"
 exposed = "0.52.0"
 flyway = "10.15.0"
@@ -9,20 +10,38 @@ kotlin = "2.0.0"
 ktor = "2.3.12"
 logback = "1.5.6"
 mockk = "1.13.11"
+mockkSpring = "4.0.2"
 pitest = "1.15.0"
 postgres = "42.7.3"
 spotless = "6.25.0"
+springDependencyManagement = "1.1.5"
+springboot = "3.3.0"
+swagger = "7.6.0"
 testContainers = "1.19.8"
 
 [libraries]
 
+# Kotlin & Coroutines
+kotlin_core = { module = "org.jetbrains.kotlin:kotlin-stdlib" }
+kotlin_jackson_module = { module = "com.fasterxml.jackson.module:jackson-module-kotlin" }
+kotlin_reflection = { module = "org.jetbrains.kotlin:kotlin-reflect" }
+kotlinx_coroutines_core = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", version.ref = "coroutines" }
+kotlinx_coroutines_reactor = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-reactor", version.ref = "coroutines" }
+
+# Spring Boot
+mockk_spring = { module = "com.ninja-squad:springmockk", version.ref = "mockkSpring" }
+springboot_actuator_starter = { module = "org.springframework.boot:spring-boot-starter-actuator" }
+springboot_test_starter = { module = "org.springframework.boot:spring-boot-starter-test" }
+springboot_validation_starter = { module = "org.springframework.boot:spring-boot-starter-validation" }
+springboot_webflux_starter = { module = "org.springframework.boot:spring-boot-starter-webflux" }
+
 ## Ktor
 ktor_client_cio = { module = "io.ktor:ktor-client-cio", version.ref = "ktor" }
 ktor_client_content_negotiation = { module = "io.ktor:ktor-client-content-negotiation", version.ref = "ktor" }
+ktor_client_mock = { module = "io.ktor:ktor-client-mock", version.ref = "ktor" }
 ktor_core = { module = "io.ktor:ktor-server-core", version.ref = "ktor" }
 ktor_serialization_kotlinx_json = { module = "io.ktor:ktor-serialization-kotlinx-json", version.ref = "ktor" }
 ktor_server_netty_jvm = { module = "io.ktor:ktor-server-netty", version.ref = "ktor" }
-ktor_client_mock = { module = "io.ktor:ktor-client-mock", version.ref = "ktor" }
 ktor_tests = { module = "io.ktor:ktor-server-tests", version.ref = "ktor" }
 
 ## DI
@@ -54,13 +73,37 @@ test_containers = { module = "org.testcontainers:junit-jupiter", version.ref = "
 test_containers_postgres = { module = "org.testcontainers:postgresql", version.ref = "testContainers" }
 
 [plugins]
+
 kotlin_jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }
 kotlin_serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
+kotlin_spring = { id = "org.jetbrains.kotlin.plugin.spring", version.ref = "kotlin" }
 ktor = { id = "io.ktor.plugin", version.ref = "ktor" }
+openapi_generator = { id = "org.openapi.generator", version.ref = "swagger" }
 pitest = { id = "info.solidsoft.pitest", version.ref = "pitest" }
 spotless = { id = "com.diffplug.spotless", version.ref = "spotless" }
+springboot = { id = "org.springframework.boot", version.ref = "springboot" }
+springboot_dependency_management = { id = "io.spring.dependency-management", version.ref = "springDependencyManagement" }
 
 [bundles]
+
+kotlin_all = [
+    "kotlin_core",
+    "kotlin_jackson_module",
+    "kotlin_reflection",
+    "kotlinx_coroutines_core",
+    "kotlinx_coroutines_reactor",
+]
+
+springboot_all = [
+    "springboot_actuator_starter",
+    "springboot_validation_starter",
+    "springboot_webflux_starter",
+]
+
+springboot_tests_all = [
+    "springboot_test_starter",
+    "mockk_spring",
+]
 
 ktor_all = [
     "ktor_client_cio",
@@ -70,7 +113,7 @@ ktor_all = [
     "ktor_server_netty_jvm",
 ]
 
-ktor_test_all = [
+ktor_tests_all = [
     "ktor_client_mock",
     "ktor_tests",
 ]
