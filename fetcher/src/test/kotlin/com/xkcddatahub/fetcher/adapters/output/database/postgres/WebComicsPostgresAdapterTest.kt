@@ -1,6 +1,9 @@
 package com.xkcddatahub.fetcher.adapters.output.database.postgres
 
 import com.xkcddatahub.fetcher.adapters.output.AbstractIntegrationTest
+import com.xkcddatahub.fetcher.adapters.output.database.postgres.data.DatabaseWebComics
+import com.xkcddatahub.fetcher.adapters.output.database.postgres.mappers.DatabaseWebComicsMapper.toData
+import com.xkcddatahub.fetcher.adapters.output.database.postgres.table.OutboxEventTable
 import com.xkcddatahub.fetcher.adapters.output.database.postgres.table.WebComicsTable
 import com.xkcddatahub.fetcher.bootstrap.DatabaseFactory.Companion.transaction
 import com.xkcddatahub.fetcher.domain.entity.WebComics
@@ -20,7 +23,10 @@ class WebComicsPostgresAdapterTest : AbstractIntegrationTest() {
     fun setup() =
         runTest {
             transaction {
-                SchemaUtils.create(WebComicsTable)
+                SchemaUtils.create(
+                    WebComicsTable,
+                    OutboxEventTable,
+                )
             }
         }
 
@@ -28,7 +34,10 @@ class WebComicsPostgresAdapterTest : AbstractIntegrationTest() {
     fun tearDown() =
         runTest {
             transaction {
-                SchemaUtils.drop(WebComicsTable)
+                SchemaUtils.drop(
+                    WebComicsTable,
+                    OutboxEventTable,
+                )
             }
         }
 
@@ -45,11 +54,19 @@ class WebComicsPostgresAdapterTest : AbstractIntegrationTest() {
             // Then
             result shouldBe true
 
-            val storedComics = transaction { WebComicsTable.selectAll().toList() }
+            val storedComics =
+                transaction { WebComicsTable.selectAll().toList() }
             storedComics.size shouldBe 1
 
             val storedComic = storedComics.first()
             assertWebComicsAreEqual(webComic, storedComic)
+
+            val outboxEvents =
+                transaction { OutboxEventTable.selectAll().toList() }
+            outboxEvents.size shouldBe 1
+
+            val event = outboxEvents.first()
+            assertOutboxEventsAreEqual(webComic.toData(), event)
         }
 
     @Test
@@ -66,8 +83,13 @@ class WebComicsPostgresAdapterTest : AbstractIntegrationTest() {
             // Then
             result shouldBe false
 
-            val storedComics = transaction { WebComicsTable.selectAll().toList() }
+            val storedComics =
+                transaction { WebComicsTable.selectAll().toList() }
             storedComics.size shouldBe 1
+
+            val outboxEvents =
+                transaction { OutboxEventTable.selectAll().toList() }
+            outboxEvents.size shouldBe 1
         }
 
     @Test
@@ -83,11 +105,19 @@ class WebComicsPostgresAdapterTest : AbstractIntegrationTest() {
             // Then
             result shouldBe true
 
-            val storedComics = transaction { WebComicsTable.selectAll().toList() }
+            val storedComics =
+                transaction { WebComicsTable.selectAll().toList() }
             storedComics.size shouldBe 1
 
             val storedComic = storedComics.first()
             assertWebComicsAreEqual(webComic, storedComic)
+
+            val outboxEvents =
+                transaction { OutboxEventTable.selectAll().toList() }
+            outboxEvents.size shouldBe 1
+
+            val event = outboxEvents.first()
+            assertOutboxEventsAreEqual(webComic.toData(), event)
         }
 
     @Test
@@ -105,7 +135,8 @@ class WebComicsPostgresAdapterTest : AbstractIntegrationTest() {
 
             // Then
             results.forEach { it shouldBe true }
-            val storedComics = transaction { WebComicsTable.selectAll().toList() }
+            val storedComics =
+                transaction { WebComicsTable.selectAll().toList() }
             storedComics.size shouldBe 100
         }
 
@@ -122,7 +153,8 @@ class WebComicsPostgresAdapterTest : AbstractIntegrationTest() {
             webComicPostgresAdapter.save(webComic2)
 
             // Then
-            val latestStoredComicId = webComicPostgresAdapter.getLatestStoredComicId()
+            val latestStoredComicId =
+                webComicPostgresAdapter.getLatestStoredComicId()
             latestStoredComicId shouldBe 2
         }
 
@@ -133,7 +165,8 @@ class WebComicsPostgresAdapterTest : AbstractIntegrationTest() {
             val webComicPostgresAdapter = WebComicPostgresAdapter()
 
             // When
-            val latestStoredComicId = webComicPostgresAdapter.getLatestStoredComicId()
+            val latestStoredComicId =
+                webComicPostgresAdapter.getLatestStoredComicId()
 
             // Then
             latestStoredComicId shouldBe 0
@@ -152,7 +185,8 @@ class WebComicsPostgresAdapterTest : AbstractIntegrationTest() {
             // Then
             result shouldBe true
 
-            val latestStoredComicId = webComicPostgresAdapter.getLatestStoredComicId()
+            val latestStoredComicId =
+                webComicPostgresAdapter.getLatestStoredComicId()
             latestStoredComicId shouldBe Int.MAX_VALUE
         }
 
@@ -189,5 +223,14 @@ class WebComicsPostgresAdapterTest : AbstractIntegrationTest() {
         actual[WebComicsTable.imageUrl] shouldBe expected.imageUrl
         actual[WebComicsTable.news] shouldBe expected.news
         actual[WebComicsTable.link] shouldBe expected.link
+    }
+
+    private fun assertOutboxEventsAreEqual(
+        expected: DatabaseWebComics,
+        actual: ResultRow,
+    ) {
+        actual[OutboxEventTable.aggregateType] shouldBe "web_comics_fetched"
+        actual[OutboxEventTable.aggregateId] shouldBe expected.id.toString()
+        actual[OutboxEventTable.payload] shouldBe expected
     }
 }

@@ -2,7 +2,7 @@ version: '3.8'
 
 services:
   postgres:
-    image: postgres:16
+    image: quay.io/debezium/postgres:16
     container_name: postgres
     environment:
       POSTGRES_USER: postgres
@@ -20,20 +20,27 @@ services:
     ports:
       - "9092:9092"
       - "9094:9094"
+      - "9101:9101"
     volumes:
       - "kafka_data:/bitnami"
     environment:
+      ALLOW_PLAINTEXT_LISTENER: yes
       KAFKA_ENABLE_KRAFT: yes
+      KAFKA_BROKER_ID: 1
+      KAFKA_AUTO_CREATE_TOPICS_ENABLE: true
+      KAFKA_CFG_NODE_ID: 1
+      KAFKA_CFG_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
+      KAFKA_CFG_GROUP_INITIAL_REBALANCE_DELAY_MS: 0
+      KAFKA_CFG_TRANSACTION_STATE_LOG_REPLICATION_FACTOR: 1
+      KAFKA_CFG_JMX_PORT: 9101
+      KAFKA_CFG_HOST_NAME: kafka
       KAFKA_CFG_PROCESS_ROLES: broker,controller
       KAFKA_CFG_CONTROLLER_LISTENER_NAMES: CONTROLLER
+      KAFKA_CFG_INTER_BROKER_LISTENER_NAME: 'PLAINTEXT'
       KAFKA_CFG_LISTENERS: PLAINTEXT://:9092,CONTROLLER://:9093,EXTERNAL://:9094
       KAFKA_CFG_LISTENER_SECURITY_PROTOCOL_MAP: CONTROLLER:PLAINTEXT,PLAINTEXT:PLAINTEXT,EXTERNAL:PLAINTEXT
       KAFKA_CFG_ADVERTISED_LISTENERS: PLAINTEXT://kafka:9092,EXTERNAL://kafka:9094
-      KAFKA_BROKER_ID: 1
       KAFKA_CFG_CONTROLLER_QUORUM_VOTERS: 1@127.0.0.1:9093
-      ALLOW_PLAINTEXT_LISTENER: yes
-      KAFKA_CFG_NODE_ID: 1
-      KAFKA_AUTO_CREATE_TOPICS_ENABLE: true
       KAFKA_CFG_NUM_PARTITIONS: 2
 
   kafka-ui:
@@ -60,6 +67,26 @@ services:
     environment:
       SCHEMA_REGISTRY_HOST_NAME: schema-registry
       SCHEMA_REGISTRY_KAFKASTORE_BOOTSTRAP_SERVERS: PLAINTEXT://kafka:9092
+
+  connect:
+    image: quay.io/debezium/connect:2.7
+    container_name: debezium-connect
+    volumes:
+      - ./lib:/kafka/connect/kafka-connect-protobuf-converter-7.5.0
+    ports:
+      - "8083:8083"
+    depends_on:
+      - kafka
+      - postgres
+    links:
+      - kafka
+      - postgres
+    environment:
+      BOOTSTRAP_SERVERS: 'kafka:9092'
+      GROUP_ID: 1
+      CONFIG_STORAGE_TOPIC: 'my_connect_configs'
+      OFFSET_STORAGE_TOPIC: 'my_connect_offsets'
+      STATUS_STORAGE_TOPIC: 'my_connect_statuses'
 
 volumes:
   postgres_data:

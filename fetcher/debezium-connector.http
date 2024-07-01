@@ -1,0 +1,51 @@
+### Create a new connector
+POST http://localhost:8083/connectors/
+Accept: application/json
+Content-Type: application/json
+
+{
+  "name": "data-platform-outbox-connector",
+  "config": {
+    "connector.class": "io.debezium.connector.postgresql.PostgresConnector",
+    "tasks.max": "1",
+    "database.hostname": "postgres",
+    "database.port": "5432",
+    "database.user": "postgres",
+    "database.password": "secret",
+    "database.dbname" : "xkcd_data_hub",
+    "topic.prefix": "xkcd_data_hub",
+    "table.include.list": "public.outbox_event",
+    "transforms" : "outbox",
+    "transforms.outbox.type" : "io.debezium.transforms.outbox.EventRouter",
+    "transforms.outbox.route.topic.replacement" : "fetcher.xkcd_data_hub.${routedByValue}.v1"
+  }
+}
+
+### Create a new connector with SSL and authentication
+POST http://localhost:8083/connectors/
+Accept: application/json
+Content-Type: application/json
+
+{
+  "name": "data-platform-outbox-connector",
+  "config": {
+    "connector.class": "io.debezium.connector.postgresql.PostgresConnector",
+    "tasks.max": "1",
+    "database.hostname": "postgres",
+    "database.port": "5432",
+    "database.user": "postgres",
+    "database.password": "secret",
+    "database.dbname" : "xkcd_data_hub",
+    "topic.prefix": "xkcd_data_hub",
+    "table.include.list": "public.outboxevent",
+    "transforms" : "outbox",
+    "transforms.outbox.type" : "io.debezium.transforms.outbox.EventRouter",
+    "transforms.outbox.route.topic.replacement" : "fetcher.xkcd_data_hub.${routedByValue}.v2",
+
+    "value.converter.schema.registry.ssl.truststore.location": "<location>",
+    "value.converter.schema.registry.ssl.truststore.password": "<truststore-password>",
+
+    "value.converter.basic.auth.credentials.source": "USER_INFO",
+    "value.converter.basic.auth.user.info": "{username}:{password}"
+  }
+}
