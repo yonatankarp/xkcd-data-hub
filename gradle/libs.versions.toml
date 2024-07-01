@@ -53,6 +53,7 @@ exposed_core = { module = "org.jetbrains.exposed:exposed-core", version.ref = "e
 exposed_dao = { module = "org.jetbrains.exposed:exposed-dao", version.ref = "exposed" }
 exposed_java_time = { module = "org.jetbrains.exposed:exposed-java-time", version.ref = "exposed" }
 exposed_jdbc = { module = "org.jetbrains.exposed:exposed-jdbc", version.ref = "exposed" }
+exposed_json = { module = "org.jetbrains.exposed:exposed-json", version.ref = "exposed" }
 
 ## Persistence
 flyway = { module = "org.flywaydb:flyway-database-postgresql", version.ref = "flyway" }
@@ -123,6 +124,7 @@ exposed_all = [
     "exposed_dao",
     "exposed_java_time",
     "exposed_jdbc",
+    "exposed_json",
 ]
 
 persistance_all = [
