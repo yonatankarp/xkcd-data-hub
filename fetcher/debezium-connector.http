@@ -4,7 +4,7 @@ Accept: application/json
 Content-Type: application/json
 
 {
-  "name": "data-platform-outbox-connector",
+  "name": "webcomics-fetched-outbox-connector",
   "config": {
     "connector.class": "io.debezium.connector.postgresql.PostgresConnector",
     "tasks.max": "1",

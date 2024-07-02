@@ -84,9 +84,14 @@ services:
     environment:
       BOOTSTRAP_SERVERS: 'kafka:9092'
       GROUP_ID: 1
-      CONFIG_STORAGE_TOPIC: 'my_connect_configs'
-      OFFSET_STORAGE_TOPIC: 'my_connect_offsets'
-      STATUS_STORAGE_TOPIC: 'my_connect_statuses'
+      CONFIG_STORAGE_TOPIC: 'kafka_connect_config_storage'
+      OFFSET_STORAGE_TOPIC: 'kafka_connect_offset_storage'
+      STATUS_STORAGE_TOPIC: 'kafka_connect_status_storage'
+    healthcheck:
+      test: ["CMD-SHELL", "curl -f http://localhost:8083/connectors || exit 1"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
 
 volumes:
   postgres_data:
