@@ -24,6 +24,7 @@ jobs:
     uses: yonatankarp/github-actions/.github/workflows/ci.yml@v1
     with:
       app_name: ${{ matrix.service }}
+      context: ${{ matrix.service }}
       build_dockerfile: true
 
   dependabot_auto_merge:
