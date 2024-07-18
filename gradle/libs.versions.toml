@@ -15,7 +15,7 @@ pitest = "1.15.0"
 postgres = "42.7.3"
 spotless = "6.25.0"
 springDependencyManagement = "1.1.6"
-springboot = "3.3.1"
+springboot = "3.3.2"
 swagger = "7.7.0"
 testContainers = "1.20.0"
 
