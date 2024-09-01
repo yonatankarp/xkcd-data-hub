@@ -32,7 +32,7 @@ tasks {
  ********************************************
 */
 
-val apiDirectoryPath = "$projectDir/src/main/resources/api"
+val apiDirectoryPath = "${project.projectDir.parent}/api-contract"
 val openApiGenerateOutputDir = "${layout.buildDirectory.get()}/generated/openapi"
 
 data class ApiSpec(
