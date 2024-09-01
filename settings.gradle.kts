@@ -3,5 +3,4 @@ include(
     "gateway",
     "fetcher",
     "data-processor",
-    "client-app",
 )

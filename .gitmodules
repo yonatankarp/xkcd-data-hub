@@ -1,0 +1,6 @@
+[submodule "api-contract"]
+	path = api-contract
+	url = https://github.com/yonatankarp/xkcd-data-hub-api
+[submodule "client-app"]
+	path = client-app
+	url = https://github.com/yonatankarp/xkcd-data-hub-client
