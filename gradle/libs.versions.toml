@@ -17,7 +17,7 @@ spotless = "6.25.0"
 springDependencyManagement = "1.1.6"
 springboot = "3.3.5"
 swagger = "7.10.0"
-testContainers = "1.20.3"
+testContainers = "1.20.4"
 
 [libraries]
 
