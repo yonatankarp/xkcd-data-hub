@@ -129,9 +129,10 @@ class WebComicsPostgresAdapterTest : AbstractIntegrationTest() {
 
             // When
             val results =
-                webComics.map { comic ->
-                    async { webComicPostgresAdapter.save(comic) }
-                }.awaitAll()
+                webComics
+                    .map { comic ->
+                        async { webComicPostgresAdapter.save(comic) }
+                    }.awaitAll()
 
             // Then
             results.forEach { it shouldBe true }

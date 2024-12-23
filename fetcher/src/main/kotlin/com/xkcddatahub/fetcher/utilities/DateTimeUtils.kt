@@ -6,7 +6,8 @@ import java.time.ZoneOffset
 
 object DateTimeUtils {
     fun currentUtc(): LocalDateTime =
-        Instant.now()
+        Instant
+            .now()
             .atOffset(ZoneOffset.UTC)
             .toLocalDateTime()
 }

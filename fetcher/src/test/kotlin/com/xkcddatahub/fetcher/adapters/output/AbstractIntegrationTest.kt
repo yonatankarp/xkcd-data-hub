@@ -15,8 +15,7 @@ abstract class AbstractIntegrationTest {
                     withDatabaseName("xkcd_data_hub")
                     withUsername("test")
                     withPassword("test")
-                }
-                .also { if (!it.isRunning) it.start() }
+                }.also { if (!it.isRunning) it.start() }
 
         @JvmStatic
         @BeforeAll

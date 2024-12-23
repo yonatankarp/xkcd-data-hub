@@ -2,7 +2,8 @@ package com.xkcddatahub.helpers
 
 object FilesUtils {
     fun readFileFromResources(fileName: String) =
-        Thread.currentThread()
+        Thread
+            .currentThread()
             .contextClassLoader
             .getResourceAsStream(fileName)
             ?.bufferedReader()

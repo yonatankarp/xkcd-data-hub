@@ -16,31 +16,32 @@ class WebComicPostgresAdapter : WebComicsPort {
     override suspend fun save(comics: WebComics): Boolean =
         transaction {
             val data = comics.toData()
-            WebComicsTable.insertIgnore {
-                it[id] = data.id
-                it[year] = data.year
-                it[month] = data.month
-                it[day] = data.day
-                it[title] = data.title
-                it[safeTitle] = data.safeTitle
-                it[transcript] = data.transcript
-                it[alternativeText] = data.alternativeText
-                it[imageUrl] = data.imageUrl
-                it[news] = data.news
-                it[link] = data.link
-            }
-                .takeIf { it.insertedCount == 1 }
+            WebComicsTable
+                .insertIgnore {
+                    it[id] = data.id
+                    it[year] = data.year
+                    it[month] = data.month
+                    it[day] = data.day
+                    it[title] = data.title
+                    it[safeTitle] = data.safeTitle
+                    it[transcript] = data.transcript
+                    it[alternativeText] = data.alternativeText
+                    it[imageUrl] = data.imageUrl
+                    it[news] = data.news
+                    it[link] = data.link
+                }.takeIf { it.insertedCount == 1 }
                 ?.let { outbox(data) }
                 ?: false
         }
 
     private fun outbox(comics: DatabaseWebComics): Boolean =
-        OutboxEventTable.insert {
-            it[id] = UUID.randomUUID()
-            it[aggregateType] = AGGREGATE_TYPE
-            it[aggregateId] = comics.id.toString()
-            it[payload] = comics
-        }.insertedCount == 1
+        OutboxEventTable
+            .insert {
+                it[id] = UUID.randomUUID()
+                it[aggregateType] = AGGREGATE_TYPE
+                it[aggregateId] = comics.id.toString()
+                it[payload] = comics
+            }.insertedCount == 1
 
     override suspend fun getLatestStoredComicId(): Int =
         transaction {
