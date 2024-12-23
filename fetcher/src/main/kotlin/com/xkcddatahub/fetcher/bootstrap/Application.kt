@@ -14,7 +14,8 @@ import org.koin.ktor.plugin.Koin
 import kotlin.time.Duration.Companion.hours
 
 fun main(args: Array<String>) {
-    io.ktor.server.netty.EngineMain.main(args)
+    io.ktor.server.netty.EngineMain
+        .main(args)
 }
 
 fun Application.module() {

@@ -22,8 +22,7 @@ class GetAllXkcdComics(
                     logger.info("Fetching comic $id")
                     val comics = client.getComicsById(id)
                     repository.save(comics)
-                }
-                    .onFailure { exception -> logger.error("Failed to fetch comic $exception") }
+                }.onFailure { exception -> logger.error("Failed to fetch comic $exception") }
             }
         }
 

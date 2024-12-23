@@ -17,12 +17,12 @@ allprojects {
         plugins.withId("com.diffplug.spotless") {
             configure<com.diffplug.gradle.spotless.SpotlessExtension> {
                 kotlin {
-                    ktlint()
+                    ktlint("1.5.0")
                     trimTrailingWhitespace()
                     target("src/**/*.kt")
                 }
                 kotlinGradle {
-                    ktlint()
+                    ktlint("1.5.0")
                     trimTrailingWhitespace()
                     target("**/*.kts")
                 }
