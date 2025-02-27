@@ -2,7 +2,7 @@
 
 coroutines = "1.10.1"
 exposed = "0.59.0"
-flyway = "11.3.3"
+flyway = "11.3.4"
 hikari = "6.2.1"
 koin = "4.0.2"
 kotest = "4.0.7"
