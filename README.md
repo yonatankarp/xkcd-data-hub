@@ -36,6 +36,7 @@ it all up to your eager fingertips. That's what this project is all about! 🎉
    ```sh
    $ git clone https://github.com/yonatankarp/xkcd-data-hub.git
    $ cd xkcd-data-hub
+   $ git submodule update --init --recursive
    ```
 2. **Build the Project:**
 
