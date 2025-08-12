@@ -5,13 +5,13 @@ exposed = "0.61.0"
 flyway = "11.11.0"
 hikari = "7.0.1"
 koin = "4.0.4"
-kotest = "4.0.7"
+kotest = "5.9.1"
 kotlin = "2.2.0"
-ktor = "2.3.12"
+ktor = "3.2.3"
 logback = "1.5.18"
 mockk = "1.14.5"
 mockkSpring = "4.0.2"
-pitest = "1.15.0"
+pitest = "1.19.0-rc.1" # Workaround until the pitest plugin will support Gradle 9.0
 postgres = "42.7.7"
 spotless = "7.2.1"
 springDependencyManagement = "1.1.7"
@@ -42,7 +42,7 @@ ktor_client_mock = { module = "io.ktor:ktor-client-mock", version.ref = "ktor" }
 ktor_core = { module = "io.ktor:ktor-server-core", version.ref = "ktor" }
 ktor_serialization_kotlinx_json = { module = "io.ktor:ktor-serialization-kotlinx-json", version.ref = "ktor" }
 ktor_server_netty_jvm = { module = "io.ktor:ktor-server-netty", version.ref = "ktor" }
-ktor_tests = { module = "io.ktor:ktor-server-tests", version.ref = "ktor" }
+ktor_tests = { module = "io.ktor:ktor-server-test-host", version.ref = "ktor" }
 
 ## DI
 koin = { module = "io.insert-koin:koin-ktor", version.ref = "koin" }
@@ -64,7 +64,7 @@ postgres_driver = { module = "org.postgresql:postgresql", version.ref = "postgre
 logback = { module = "ch.qos.logback:logback-classic", version.ref = "logback" }
 
 ## Tests
-kotest_assertions_jvm = { module = "io.kotest:kotest-assertions-jvm", version.ref = "kotest" }
+kotest_assertions_jvm = { module = "io.kotest:kotest-assertions-core-jvm", version.ref = "kotest" }
 kotlin_coroutines_test = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-test", version.ref = "coroutines" }
 kotlin_test_junit = { module = "org.jetbrains.kotlin:kotlin-test-junit5", version.ref = "kotlin" }
 mockk = { module = "io.mockk:mockk", version.ref = "mockk" }
