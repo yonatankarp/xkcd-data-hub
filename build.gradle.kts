@@ -1,3 +1,6 @@
+import com.diffplug.gradle.spotless.SpotlessExtension
+import info.solidsoft.gradle.pitest.PitestPluginExtension
+import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
@@ -6,32 +9,24 @@ plugins {
     alias(libs.plugins.spotless) apply true
 }
 
-allprojects {
-    apply(plugin = "com.diffplug.spotless")
+repositories { mavenCentral() }
 
-    repositories {
-        mavenCentral()
-    }
-
-    afterEvaluate {
-        plugins.withId("com.diffplug.spotless") {
-            configure<com.diffplug.gradle.spotless.SpotlessExtension> {
-                kotlin {
-                    ktlint("1.5.0")
-                    trimTrailingWhitespace()
-                    target("src/**/*.kt")
-                }
-                kotlinGradle {
-                    ktlint("1.5.0")
-                    trimTrailingWhitespace()
-                    target("**/*.kts")
-                }
-                flexmark {
-                    flexmark()
-                    trimTrailingWhitespace()
-                    target("**/*.md")
-                }
-            }
+pluginManager.withPlugin("com.diffplug.spotless") {
+    extensions.configure<SpotlessExtension>("spotless") {
+        kotlin {
+            ktlint("1.5.0")
+            trimTrailingWhitespace()
+            target("**/src/**/*.kt")
+        }
+        kotlinGradle {
+            ktlint("1.5.0")
+            trimTrailingWhitespace()
+            target("**/*.kts")
+        }
+        flexmark {
+            flexmark()
+            trimTrailingWhitespace()
+            target("**/*.md")
         }
     }
 }
@@ -40,29 +35,24 @@ subprojects {
     group = "com.xkcddatahub"
     version = "0.0.1"
 
-    apply(plugin = "info.solidsoft.pitest")
+    repositories { mavenCentral() }
 
-    afterEvaluate {
-        plugins.withId("info.solidsoft.pitest") {
-            configure<info.solidsoft.gradle.pitest.PitestPluginExtension> {
-                targetClasses.set(listOf("com.xkcddatahub.*"))
-                threads.set(Runtime.getRuntime().availableProcessors())
-                outputFormats.set(listOf("XML", "HTML"))
-                junit5PluginVersion = "1.2.1"
-                timestampedReports.set(false)
-                excludedClasses =
-                    listOf(
-                        "com.xkcddatahub.*.di.*",
-                    )
-            }
-        }
+    tasks.withType<KotlinCompile>().configureEach {
+        compilerOptions.jvmTarget = JvmTarget.JVM_21
+    }
 
-        tasks.withType(Test::class) {
-            useJUnitPlatform()
-        }
+    tasks.withType<Test>().configureEach {
+        useJUnitPlatform()
+    }
 
-        tasks.withType(KotlinCompile::class.java) {
-            dependsOn("spotlessCheck", ":copyGitHooks")
+    pluginManager.withPlugin("info.solidsoft.pitest") {
+        extensions.configure<PitestPluginExtension>("pitest") {
+            targetClasses.set(listOf("com.xkcddatahub.*"))
+            threads.set(Runtime.getRuntime().availableProcessors())
+            outputFormats.set(listOf("XML", "HTML"))
+            junit5PluginVersion = "1.2.1"
+            timestampedReports.set(false)
+            excludedClasses = listOf("com.xkcddatahub.*.di.*")
         }
     }
 }

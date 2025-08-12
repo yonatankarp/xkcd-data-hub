@@ -6,6 +6,7 @@ plugins {
     alias(libs.plugins.springboot)
     alias(libs.plugins.springboot.dependency.management)
     alias(libs.plugins.openapi.generator)
+    alias(libs.plugins.pitest)
 }
 
 dependencies {
