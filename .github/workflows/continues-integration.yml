@@ -2,6 +2,7 @@ name: Continuous Integration
 
 on:
   pull_request:
+    types: [ opened, synchronize, reopened, ready_for_review ]
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.job }}-${{ github.ref }}
@@ -16,11 +17,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        service: [
-          gateway,
-          fetcher,
-          data-processor,
-        ]
+        service: [ gateway, fetcher, data-processor ]
     uses: yonatankarp/github-actions/.github/workflows/ci.yml@v1
     with:
       app_name: ${{ matrix.service }}
@@ -29,9 +26,13 @@ jobs:
 
   dependabot_auto_merge:
     needs: pipeline
+    if: ${{ github.actor == 'dependabot[bot]' }}
+    permissions:
+      contents: write
+      pull-requests: write
     uses: yonatankarp/github-actions/.github/workflows/dependabot-auto-merge.yml@v1
     secrets:
-      GITHUB_PAT: ${{ secrets.PAT }}
+      DEPENDABOT_MERGE_TOKEN: ${{ secrets.REVIEWER_GITHUB_TOKEN }}
 
   linters:
     permissions:
