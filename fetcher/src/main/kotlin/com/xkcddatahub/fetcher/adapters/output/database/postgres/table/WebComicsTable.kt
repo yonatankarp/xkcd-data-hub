@@ -1,8 +1,8 @@
 package com.xkcddatahub.fetcher.adapters.output.database.postgres.table
 
 import com.xkcddatahub.fetcher.utilities.DateTimeUtils.currentUtc
-import org.jetbrains.exposed.sql.Table
-import org.jetbrains.exposed.sql.javatime.datetime
+import org.jetbrains.exposed.v1.core.Table
+import org.jetbrains.exposed.v1.javatime.datetime
 
 object WebComicsTable : Table("web_comics") {
     val id = integer("id")
