@@ -2,9 +2,11 @@ package com.xkcddatahub.fetcher.adapters.output.database.postgres.table
 
 import com.xkcddatahub.fetcher.adapters.output.database.postgres.data.DatabaseWebComics
 import kotlinx.serialization.json.Json
-import org.jetbrains.exposed.sql.Table
-import org.jetbrains.exposed.sql.json.jsonb
+import org.jetbrains.exposed.v1.core.Table
+import org.jetbrains.exposed.v1.json.jsonb
+import kotlin.uuid.ExperimentalUuidApi
 
+@OptIn(ExperimentalUuidApi::class)
 object OutboxEventTable : Table("outbox_event") {
     val id = uuid("id")
     val aggregateType = varchar(name = "aggregatetype", length = 255)

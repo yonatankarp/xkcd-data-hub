@@ -11,9 +11,9 @@ import io.kotest.matchers.shouldBe
 import kotlinx.coroutines.async
 import kotlinx.coroutines.awaitAll
 import kotlinx.coroutines.test.runTest
-import org.jetbrains.exposed.sql.ResultRow
-import org.jetbrains.exposed.sql.SchemaUtils
-import org.jetbrains.exposed.sql.selectAll
+import org.jetbrains.exposed.v1.core.ResultRow
+import org.jetbrains.exposed.v1.jdbc.SchemaUtils
+import org.jetbrains.exposed.v1.jdbc.selectAll
 import org.junit.jupiter.api.AfterEach
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
