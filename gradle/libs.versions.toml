@@ -15,7 +15,7 @@ pitest = "1.19.0" # Workaround until the pitest plugin will support Gradle 9.0
 postgres = "42.7.10"
 spotless = "8.4.0"
 springDependencyManagement = "1.1.7"
-springboot = "4.0.5"
+springboot = "4.0.6"
 swagger = "7.21.0"
 testContainers = "1.21.4"
 
