@@ -23,6 +23,7 @@ jobs:
       image-name: ${{ matrix.service }}
       dockerfile-path: ${{ matrix.service }}/Dockerfile
       gradle-module: ":${{ matrix.service }}"
+      submodules: recursive
 
   dependabot_auto_merge:
     needs: pipeline
