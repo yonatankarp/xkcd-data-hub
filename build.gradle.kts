@@ -38,7 +38,7 @@ subprojects {
     repositories { mavenCentral() }
 
     tasks.withType<KotlinCompile>().configureEach {
-        compilerOptions.jvmTarget = JvmTarget.JVM_21
+        compilerOptions.jvmTarget = JvmTarget.JVM_25
     }
 
     tasks.withType<Test>().configureEach {
