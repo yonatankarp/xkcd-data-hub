@@ -26,7 +26,7 @@ jobs:
       submodules: recursive
 
   dependabot_auto_merge:
-    needs: pipeline
+    needs: [ pipeline, linters ]
     if: ${{ github.actor == 'dependabot[bot]' }}
     permissions:
       contents: write
