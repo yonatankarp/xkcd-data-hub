@@ -16,7 +16,7 @@ postgres = "42.7.13"
 spotless = "8.8.0"
 springDependencyManagement = "1.1.7"
 springboot = "4.1.0"
-swagger = "7.23.0"
+swagger = "7.24.0"
 testContainers = "1.21.4"
 
 [libraries]
